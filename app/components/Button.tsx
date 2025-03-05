@@ -1,0 +1,26 @@
+import { ArrowBigRight, ArrowRight } from "lucide-react";
+import React from "react";
+
+const Button = ({ text }: { text: String }) => {
+  return (
+    <button className="button-default flex items-center gap-4">
+      {text}
+      <ArrowRight size={20} />
+    </button>
+  );
+};
+
+export const ButtonWhite = ({ text }: { text: String }) => {
+  return (
+    <button className="button-white flex items-center gap-4">
+      {text}
+      <ArrowRight size={20} />
+    </button>
+  );
+};
+
+export const SmallButton = ({ text }: { text: String }) => {
+  return <button className="small-button flex items-center">{text}</button>;
+};
+
+export default Button;
