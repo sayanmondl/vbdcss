@@ -1,6 +1,8 @@
 import AnnouncementCard from "../components/AnnouncementCard";
 import Button, { ButtonWhite } from "../components/Button";
 import EventCard from "../components/EventCard";
+import Load3LatestAnnouncements from "../components/Load3LatestAnnouncements";
+import Load3LatestEvents from "../components/Load3LatestEvents";
 import SportEventCard from "../components/SportEventCard";
 
 export default function Home() {
@@ -25,21 +27,13 @@ export default function Home() {
       <div className="mt-20 flex flex-col items-center">
         <h1 className="font-teko text-3xl font-medium">LATEST EVENTS</h1>
         <div className="h-0.5 bg-blue-dark w-3/4 mt-4"></div>
-        <div className="flex flex-wrap gap-10 mx-10 w-fit my-16">
-          <EventCard />
-          <EventCard />
-          <EventCard />
-        </div>
+        <Load3LatestEvents />
         <Button text="View All Events" />
       </div>
       <div className="mt-20 flex flex-col items-center">
         <h1 className="font-teko text-3xl font-medium">LATEST ANNOUNCEMENTS</h1>
         <div className="h-0.5 bg-blue-dark w-3/4 mt-4"></div>
-        <div className="my-16 w-3/4 space-y-7">
-          <AnnouncementCard />
-          <AnnouncementCard />
-          <AnnouncementCard />
-        </div>
+        <Load3LatestAnnouncements />
         <Button text="View All Announcements" />
       </div>
       <div className="mt-20 flex flex-col items-center">
@@ -49,7 +43,7 @@ export default function Home() {
           <SportEventCard />
           <SportEventCard />
         </div>
-        <Button text="View All Announcements" />
+        <Button text="View All Sports Events" />
       </div>
       <div className="h-96"></div>
     </main>
