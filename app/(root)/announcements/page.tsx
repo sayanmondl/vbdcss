@@ -1,10 +1,22 @@
-import React from "react";
+import LoadAnnouncements from "@/app/components/LoadAnnouncements";
 
-const Page = () => {
+export interface SearchParams {
+  page?: string;
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+
+  const page = params.page ? Number.parseInt(params.page, 10) : 1;
+  const validPage = isNaN(page) || page < 1 ? 1 : page;
+
   return (
-    <div>
+    <div className="pagemargin">
+      <LoadAnnouncements page={validPage} />;
     </div>
   );
-};
-
-export default Page;
+}
