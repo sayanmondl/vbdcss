@@ -3,7 +3,7 @@ import React from "react";
 
 const Button = ({ text }: { text: String }) => {
   return (
-    <button className="button-default flex items-center gap-4">
+    <button className="button-default flex text-nowrap items-center gap-4">
       {text}
       <ArrowRight size={20} />
     </button>
@@ -12,7 +12,7 @@ const Button = ({ text }: { text: String }) => {
 
 export const ButtonWhite = ({ text }: { text: String }) => {
   return (
-    <button className="button-white flex items-center gap-4">
+    <button className="button-white flex items-center text-nowrap gap-4">
       {text}
       <ArrowRight size={20} />
     </button>
