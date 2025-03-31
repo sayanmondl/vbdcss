@@ -4,7 +4,6 @@ import React from "react";
 import Button from "./Button";
 import {
   AlignLeft,
-  Boxes,
   Calendar,
   GraduationCap,
   Megaphone,
@@ -33,7 +32,7 @@ import {
 } from "@/components/ui/accordion";
 
 const Navbar = () => {
-  let loggedIn = false;
+  let loggedIn = true;
 
   return (
     <nav>
@@ -73,20 +72,6 @@ const Navbar = () => {
               <AccordionItem value="item-2">
                 <AccordionTrigger className="para">
                   <div className="flex items-center gap-2">
-                    <Boxes className="text-blue-middark" size={16} />
-                    Clubs
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul>
-                    <NavLink link="/clubs/iot" text="VBDCSS IoT Club" />
-                    <NavLink link="/clubs/codeclub" text="Code-Club" />
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger className="para">
-                  <div className="flex items-center gap-2">
                     <Volleyball className="text-blue-middark" size={16} />
                     Sports
                   </div>
@@ -98,7 +83,7 @@ const Navbar = () => {
                   </ul>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-4">
+              <AccordionItem value="item-3">
                 <Link href="/announcements">
                   <div className="flex items-center gap-2 ">
                     <Megaphone className="text-blue-middark" size={16} />
@@ -106,7 +91,7 @@ const Navbar = () => {
                   </div>
                 </Link>
               </AccordionItem>
-              <AccordionItem value="item-5">
+              <AccordionItem value="item-4">
                 <Link href="/events">
                   <div className="flex items-center gap-2 ">
                     <Calendar className="text-blue-middark" size={16} />
@@ -128,9 +113,15 @@ const Navbar = () => {
         </Link>
         <div className="flex-1"></div>
         {loggedIn ? (
-          <Link href="/dashboard">
+          <Link href="/profile">
             <div>
-              <Image src="/user.png" alt="account" width={40} height={40} className="hover:blue-border duration-100 rounded-full object-cover" />
+              <Image
+                src="/user.png"
+                alt="account"
+                width={40}
+                height={40}
+                className="hover:blue-border duration-100 rounded-full object-cover"
+              />
             </div>
           </Link>
         ) : (
@@ -166,35 +157,6 @@ const Navbar = () => {
                     </ListItem>
                     <ListItem href="/student" title="Our Students">
                       View the list of students in the department
-                    </ListItem>
-                  </ul>
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent data-[state=open]:bg-white">
-                <Boxes className="text-blue-middark" size={16} />
-                <span className="para">Clubs</span>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div className="flex h-[220px] w-[500px]">
-                  <div className="flex justify-center items-center overflow-hidden p-4 rounded-md">
-                    <Image
-                      src="/IoT.jpg"
-                      alt=""
-                      width={250}
-                      height={400}
-                      className="h-full blue-border-thin rounded-sm object-cover"
-                    />
-                  </div>
-                  <ul className="grid gap-3 py-4 pr-4">
-                    <ListItem href="/clubs/iot" title="IoT Club">
-                      Join the VBDCSS IoT Club and explore cool projects with
-                      others
-                    </ListItem>
-                    <ListItem href="/clubs/codeclub" title="Code Club">
-                      Join the Code Club to learn and participate in various
-                      projects
                     </ListItem>
                   </ul>
                 </div>
