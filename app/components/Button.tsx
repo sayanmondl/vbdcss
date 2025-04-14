@@ -1,4 +1,4 @@
-import { ArrowBigRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import React from "react";
 
 const Button = ({ text }: { text: String }) => {

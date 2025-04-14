@@ -84,18 +84,19 @@ export default function ResourceUploadForm() {
   };
 
   return (
-    <Card className="w-full max-w-6xl mx-auto rounded-none sm:rounded-xl mb-10 sm:my-10 font-barlow">
-      <CardHeader>
+    <Card className="w-full mb-10 font-barlow shadow-none border-none">
+      <CardHeader className="p-0 py-6">
         <CardTitle className="font-barlow font-medium text-blue-dark text-3xl">
           Upload Resource
         </CardTitle>
         <CardDescription>
           Upload a file along with its details. Supported formats include
-          images, PDFs, documents, and more (except videos).
+          images, PDFs, documents, and more (except videos)<br/><br/>
+          Note! - ZIP your codes before uploading.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 p-0 pb-6">
           <div className="space-y-2">
             <Label htmlFor="file" className="text-base">
               File Upload
@@ -189,7 +190,7 @@ export default function ResourceUploadForm() {
 
           <div className="space-y-2">
             <Label className="text-base">Options</Label>
-            <RadioGroup defaultValue="code">
+            <RadioGroup defaultValue="code" className="flex gap-6">
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="code" id="code" />
                 <Label htmlFor="code" className="cursor-pointer">

@@ -1,5 +1,6 @@
 import React from "react";
 import EventCard from "./EventCard";
+import Button from "./Button";
 
 const events = [
   {
@@ -33,10 +34,24 @@ const events = [
 
 const Load3LatestEvents = () => {
   return (
-    <div className="pagemargin my-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {events.slice(0, 3).map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
+    <div className="pagemargin mt-20 items-center" id="events">
+      <div className="flex items-center">
+        <a href="/#events">
+          <div className="flex w-full items-center gap-2">
+            <div className="w-4 h-12 bg-blue-dark"></div>
+            <h1 className="font-teko text-3xl font-medium text-nowrap mt-2">
+              LATEST EVENTS
+            </h1>
+          </div>
+        </a>
+        <div className="flex-1"></div>
+        <Button text="View All Events" />
+      </div>
+      <div className="my-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {events.slice(0, 3).map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))}
+      </div>
     </div>
   );
 };

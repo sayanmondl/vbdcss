@@ -20,7 +20,7 @@ const Page = async ({
 }) => {
   const { announcementId } = await params;
   return (
-    <main className="pagemargin mt-4">
+    <div className="pagemargin mt-4">
       <div className="flex space-x-10 items-center">
         <h1 className="teko-heading-big">{dummyData.title}</h1>
         <Badge className="bg-blue-dark">{dummyData.category}</Badge>
@@ -33,10 +33,12 @@ const Page = async ({
       </h2>
       <div className="h-[1px] bg-blue-dark mb-10"></div>
       <p className="font-barlow text-base mb-6">{dummyData.info}</p>
-      <Link href={dummyData.attachment}>
-        <Button text="View details" />
-      </Link>
-    </main>
+      <div className="flex">
+        <a href={dummyData.attachment}>
+          <Button text="View details" />
+        </a>
+      </div>
+    </div>
   );
 };
 

@@ -30,10 +30,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { auth } from "@/auth";
 
-const Navbar = () => {
-  let loggedIn = true;
-
+const Navbar = async () => {
+  const session = await auth();
   return (
     <nav>
       <div className="bg-blue-fade h-20 flex items-center px-5 md:px-20">
@@ -112,7 +112,7 @@ const Navbar = () => {
           </h1>
         </Link>
         <div className="flex-1"></div>
-        {loggedIn ? (
+        {session ? (
           <Link href="/profile">
             <div>
               <Image
@@ -125,9 +125,9 @@ const Navbar = () => {
             </div>
           </Link>
         ) : (
-          <div>
+          <a href="/auth/signin">
             <Button text="Log In" />
-          </div>
+          </a>
         )}
       </div>
 
