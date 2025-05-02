@@ -1,4 +1,3 @@
-import { addData } from "@/db/seed";
 import Button, { ButtonWhite } from "../components/Button";
 import Footer from "../components/Footer";
 import Load3LatestAnnouncements from "../components/Load3LatestAnnouncements";
