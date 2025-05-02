@@ -1,10 +1,21 @@
-import ResourceUploadForm from '@/app/components/ResourceUploadForm'
-import React from 'react'
+import ResourceUploadForm from "@/app/profile/uploadres/ResourceUploadForm";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import React from "react";
 
-const Page = () => {
+const Page = async () => {
+  const session = await auth();
+  if (!session) {
+    redirect("/");
+  }
+
+  const userId = session.user?.id as string;
+
   return (
-    <ResourceUploadForm />
-  )
-}
+    <div className="pagemargin">
+      <ResourceUploadForm userId={userId} />
+    </div>
+  );
+};
 
-export default Page
+export default Page;
