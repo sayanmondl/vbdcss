@@ -28,22 +28,26 @@ export default function ErrorPage() {
     : errorMessages.Default;
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen p-4 font-barlow">
+      <Card className="w-full max-w-md bg-blue-fade shadow-none">
         <CardHeader className="text-center">
           <AlertCircle className="mx-auto h-12 w-12 text-destructive mb-4" />
-          <CardTitle>Authentication Error</CardTitle>
+          <CardTitle className="font-medium text-xl">
+            Authentication Error
+          </CardTitle>
           <CardDescription>{errorMessage}</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <Link href="/auth/signin">
-            <Button className="w-full">Try Again</Button>
-          </Link>
-          <Link href="/">
-            <Button variant="outline" className="w-full">
-              Back to Home
-            </Button>
-          </Link>
+        <CardContent>
+          <div className="flex gap-6">
+            <Link href="/auth/signin" className="flex-1">
+              <Button className="w-full bg-blue-dark">Try Again</Button>
+            </Link>
+            <Link href="/" className="flex-1">
+              <Button variant="outline" className="w-full hover:bg-slate-300">
+                Back to Home
+              </Button>
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>
