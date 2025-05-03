@@ -2,12 +2,19 @@ import { db } from "@/db";
 import { announcements } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import UpdateAnnouncementForm from "./UpdateAnnouncementForm";
+import { checkIfAdmin } from "@/lib/userauth";
+import { redirect } from "next/navigation";
 
 export default async function EditAnnouncementPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const id = Number.parseInt((await params).id);
 
   const oldAnnoncements = await db

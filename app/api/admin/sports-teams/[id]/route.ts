@@ -2,14 +2,14 @@ import { db } from "@/db";
 import { sportsTeams } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { auth } from "@/auth";
+import { checkIfAdmin } from "@/lib/userauth";
 
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const session = await auth();
-  if (!session) {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
     return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
   }
 

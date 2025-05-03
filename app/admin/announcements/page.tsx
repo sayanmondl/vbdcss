@@ -5,8 +5,15 @@ import { announcements } from "@/db/schema";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { announcementColumns } from "./AnnouncementColumns";
+import { redirect } from "next/navigation";
+import { checkIfAdmin } from "@/lib/userauth";
 
 export default async function AnnouncementsPage() {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const allAnnouncements = await db.select().from(announcements);
 
   return (

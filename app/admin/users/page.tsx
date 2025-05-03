@@ -5,8 +5,15 @@ import { users } from "@/db/schema";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { userColumns } from "./UserColumns";
+import { checkIfAdmin } from "@/lib/userauth";
+import { redirect } from "next/navigation";
 
 export default async function UsersPage() {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const allUsers = await db.select().from(users);
 
   return (

@@ -5,8 +5,15 @@ import { tournaments } from "@/db/schema";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { tournamentColumns } from "./TournamentColumns";
+import { redirect } from "next/navigation";
+import { checkIfAdmin } from "@/lib/userauth";
 
 export default async function TournamentsPage() {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const allTournaments = await db.select().from(tournaments);
 
   return (
