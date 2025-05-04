@@ -58,7 +58,7 @@ export const resourceColumns: ColumnDef<any>[] = [
       const handleDeleteResource = async () => {
         try {
           setIsDeleting(true);
-          const response = await fetch(`/api/admin/resources/${resourceId}`, {
+          const response = await fetch(`/api/resources/${resourceId}`, {
             method: "DELETE",
           });
 
