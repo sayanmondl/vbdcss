@@ -1,28 +1,32 @@
-import SemesterSelector from "@/app/components/SemesterSelector";
 import LoadStudents from "@/app/components/LoadStudents";
+import YearSelector from "@/app/components/YearSelector";
 import { getStudents } from "@/lib/student";
 
 const Page = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ semester?: string }>;
+  searchParams: Promise<{ year?: string }>;
 }) => {
-  let { semester } = await searchParams;
-  if (semester == undefined) {
-    semester = "all";
+  let { year } = await searchParams;
+  if (year == undefined) {
+    year = "all";
   }
   const students = await getStudents();
 
+  const years = Array.from(
+    new Set(students.map((s) => s.year).filter((y) => y !== null))
+  ).sort((a, b) => a! - b!) as number[];
+
   const filteredStudents =
-    semester === "all"
+    year === "all"
       ? students
       : students.filter(
-          (student) => student.semester === Number.parseInt(semester as string)
+          (student) => student.year === Number.parseInt(year as string)
         );
 
   return (
     <div className="pagemargin">
-      <SemesterSelector selectedSemester={semester as string} />
+      <YearSelector selectedYear={year as string} years={years} />
       <LoadStudents students={filteredStudents} />
     </div>
   );
