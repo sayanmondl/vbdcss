@@ -28,7 +28,7 @@ const NavbarDash = () => {
             <div>
               <button className="button-white flex items-center gap-4">
                 <ArrowLeftFromLine className=" size-4 sm:size-[18px]" />
-                <p className="mb-0.5 text-base sm:text-lg">Home</p>
+                <p className="mb-0.5 text-sm sm:text-base">Home</p>
               </button>
             </div>
           </Link>
