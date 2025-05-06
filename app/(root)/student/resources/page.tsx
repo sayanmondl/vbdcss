@@ -3,6 +3,8 @@ import { ResourceCard } from "@/app/components/ResourceCard";
 import { getResources } from "@/lib/resource";
 import { ResourcesSkeleton } from "./ResourceSkeleton";
 import SearchResources from "./SearchResources";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 async function ResourcesList({
   searchParams,
@@ -70,11 +72,15 @@ async function ResourcesList({
   );
 }
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams: Promise<{ query?: string; subject?: string; type?: string }>;
 }) {
+  const session = await auth();
+  if (!session) {
+    redirect("/auth/signin");
+  }
   return (
     <div className="pagemargin">
       <h1 className="barlow-heading-thin mb-6">Resources:</h1>

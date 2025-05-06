@@ -1,12 +1,19 @@
 import LoadStudents from "@/app/components/LoadStudents";
 import YearSelector from "@/app/components/YearSelector";
+import { auth } from "@/auth";
 import { getStudents } from "@/lib/student";
+import { redirect } from "next/navigation";
 
 const Page = async ({
   searchParams,
 }: {
   searchParams: Promise<{ year?: string }>;
 }) => {
+  const session = await auth();
+  if (!session) {
+    redirect("/auth/signin");
+  }
+
   let { year } = await searchParams;
   if (year == undefined) {
     year = "all";
