@@ -40,3 +40,13 @@ interface Tournament {
   endDate: Date | string;
   location?: string | null;
 }
+
+interface Team {
+  id: number;
+  name: string;
+  sport: string;
+  year: number;
+  captainId: string;
+  logoUrl: string | null;
+  tournamentPlayed: number;
+}
