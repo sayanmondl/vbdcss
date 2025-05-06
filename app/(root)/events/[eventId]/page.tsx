@@ -1,48 +1,51 @@
 import Button from "@/app/components/Button";
 import { Badge } from "@/components/ui/badge";
+import { db } from "@/db";
+import { events } from "@/db/schema";
 import { formatDate } from "@/lib/utils";
+import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const dummyData = {
-  cover: "/dummy2.jpg",
-  date: new Date("2025-9-5"),
-  title: "Teachers' Day Celebration 2025",
-  archive: "https://drive.google.com",
-  location:
-    "Auditorium, Department of Computer and System Sciences, Siksha-Bhavana, Visva-Bharati",
-  description:
-    "The Teachers' Day Celebration 2025 was a heartfelt tribute to our faculty. The event featured speeches, student performances, and a special award ceremony recognizing outstanding educators. A highlight was the video montage of students sharing their appreciation. The event concluded with a networking lunch, fostering meaningful interactions between teachers and students.",
-};
-
 const Page = async ({ params }: { params: Promise<{ eventId: string }> }) => {
   const { eventId } = await params;
+  const EventDetails = await db
+    .select()
+    .from(events)
+    .where(eq(events.id, Number.parseInt(eventId)));
+
+  const allEventDetails = EventDetails[0];
+
   return (
     <main className="pagemargin">
       <div className="relative">
         <div className="w-full h-[250px] sm:h-[400px] overflow-hidden flex rounded-lg items-center bg-black">
           <Image
-            src={dummyData.cover}
+            src={allEventDetails.coverUrl ?? ""}
             alt="cover"
-            width={1000}
+            width={1000}  
             height={400}
             className="opacity-50"
           />
         </div>
         <div className="absolute bottom-0 left-2 sm:left-6">
-          <h1 className="text-3xl sm:text-5xl font-teko text-white">{dummyData.title}</h1>
+          <h1 className="text-3xl sm:text-5xl font-teko text-white">
+            {allEventDetails.title}
+          </h1>
           <h2 className="text-xl sm:text-2xl sm:font-medium font-barlow text-white mb-2 sm:mb-8">
-            {formatDate(dummyData.date)}
+            {formatDate(allEventDetails.date)}
           </h2>
         </div>
-        <p className="text-white absolute font-barlow w-[300px] sm:w-[400px] right-6 top-8 italic text-right">{dummyData.location}</p>
+        <p className="text-white absolute font-barlow w-[300px] sm:w-[400px] right-6 top-8 italic text-right">
+          {allEventDetails.location}
+        </p>
       </div>
       <div className="h-[1px] mt-8 sm:mt-16 bg-blue-dark mb-5 sm:mb-10"></div>
       <h3 className="font-barlow text-lg text-blue-dark mb-6">
-        {dummyData.description}
+        {allEventDetails.description}
       </h3>
-      <Link href={dummyData.archive}>
+      <Link href={allEventDetails.archive ?? "#"}>
         <Button text="View Images" />
       </Link>
     </main>
