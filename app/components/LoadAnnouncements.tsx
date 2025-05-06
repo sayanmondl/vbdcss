@@ -54,7 +54,7 @@ function AnnouncementsLoading() {
       ))}
     </div>
   );
-}
+} 
 
 export default function LoadAnnouncements({
   page = 1,
