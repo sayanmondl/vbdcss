@@ -1,6 +1,6 @@
-import type { Announcement } from "@/lib/announcement";
 import { formatDate } from "@/lib/utils";
-import { Calendar, ChevronRight, Megaphone } from "lucide-react";
+import { Announcement } from "@/types";
+import { Calendar, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 interface AnnouncementCardProps {
@@ -16,10 +16,10 @@ const AnnouncementCard = ({ announcement }: AnnouncementCardProps) => {
             <div className="flex items-center md:flex-col md:text-center">
               <Calendar className="h-4 w-4 text-blue-dark mr-2 md:mr-0 md:mb-1 md:h-5 md:w-5" />
               <time
-                dateTime={announcement.date.toISOString()}
+                dateTime={announcement.publish.toISOString()}
                 className="font-barlow text-sm md:text-base font-medium text-blue-dark"
               >
-                {formatDate(announcement.date)}
+                {formatDate(announcement.publish)}
               </time>
             </div>
           </div>
@@ -33,6 +33,10 @@ const AnnouncementCard = ({ announcement }: AnnouncementCardProps) => {
                 <ChevronRight className="h-5 w-5" />
               </span>
             </div>
+
+            {announcement.isImportant && (
+              <div className="bg-purple-400">Important</div>
+            )}
 
             <p className="font-barlow text-gray-600 line-clamp-3 mb-3">
               {announcement.info}

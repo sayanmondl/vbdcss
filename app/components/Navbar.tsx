@@ -5,6 +5,7 @@ import Button from "./Button";
 import {
   AlignLeft,
   Calendar,
+  ChevronRight,
   GraduationCap,
   Megaphone,
   Volleyball,
@@ -31,9 +32,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { auth } from "@/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = async () => {
   const session = await auth();
+  const name = session?.user?.name as string;
+
   return (
     <nav>
       <div className="bg-blue-fade h-20 flex items-center px-5 md:px-20">
@@ -44,14 +48,8 @@ const Navbar = async () => {
           </SheetTrigger>
           <SheetContent>
             <SheetTitle className="mb-6">
-              <Link
-                href="https://visvabharati.ac.in/index.html"
-                className="flex items-center gap-4"
-              >
-                <Image src="/vblogo.svg" alt="vblogo" width={40} height={40} />
-                <h1 className="font-teko font-normal text-[22px] text-blue-dark">
-                  Visva-Bharati
-                </h1>
+              <Link href="/" className="items-center gap-4">
+                <Image src="/logo2.svg" alt="vblogo" width={70} height={50} />
               </Link>
             </SheetTitle>
             <Accordion type="multiple">
@@ -102,26 +100,21 @@ const Navbar = async () => {
             </Accordion>
           </SheetContent>
         </Sheet>
-        <Link
-          href="https://visvabharati.ac.in/index.html"
-          className="md:flex items-center gap-4 hidden"
-        >
-          <Image src="/vblogo.svg" alt="vblogo" width={40} height={40} />
-          <h1 className="font-teko text-[22px] text-blue-dark">
-            Visva-Bharati
-          </h1>
+        <Link href="/" className="md:flex items-center gap-4 hidden">
+          <Image src="/logo2.svg" alt="vblogo" width={70} height={50} />
         </Link>
         <div className="flex-1"></div>
         {session ? (
           <Link href="/profile">
-            <div>
-              <Image
-                src="/user.png"
-                alt="account"
-                width={40}
-                height={40}
-                className="hover:blue-border duration-100 rounded-full object-cover"
-              />
+            <div className="flex items-center group rounded-full px-3 py-2 bg-white">
+              <Avatar className="h-8 w-8 mr-2">
+                <AvatarImage src={session.user?.image || ""} alt={name} />
+                <AvatarFallback className="font-barlow border hover:bg-blue-dark hover:text-white">
+                  {name.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              {/* <p className="font-barlow">{name.split(" ")[0]}</p> */}
+              <ChevronRight size={16} className="group-hover:translate-x-1.5 duration-200" />
             </div>
           </Link>
         ) : (
