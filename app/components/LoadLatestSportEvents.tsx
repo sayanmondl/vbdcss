@@ -4,11 +4,6 @@ import { Suspense } from "react";
 import { getAllTournaments } from "@/lib/tournament";
 import TournamentCard from "./TournamentCard";
 
-interface LoadTournamentProps {
-  page: number;
-  pageSize?: number;
-}
-
 async function TournamentsList() {
   const tournaments = await getAllTournaments();
 
@@ -48,7 +43,7 @@ function TournamentLoading() {
   );
 }
 
-export default function LoadTournaments({}: LoadTournamentProps) {
+export default function LoadTournaments() {
   return (
     <div className="container">
       <div className="mb-4 flex">
