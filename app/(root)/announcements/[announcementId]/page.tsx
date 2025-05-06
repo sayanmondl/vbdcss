@@ -1,7 +1,9 @@
 import Button from "@/app/components/Button";
+import { auth } from "@/auth";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const dummyData = {
@@ -18,6 +20,10 @@ const Page = async ({
 }: {
   params: Promise<{ announcementId: string }>;
 }) => {
+  const session = await auth();
+  if (!session) {
+    redirect("/auth/signin");
+  }
   const { announcementId } = await params;
   return (
     <div className="pagemargin mt-4">

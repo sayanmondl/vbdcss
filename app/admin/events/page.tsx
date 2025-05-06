@@ -5,8 +5,15 @@ import { events } from "@/db/schema";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { eventColumns } from "./EventColumns";
+import { redirect } from "next/navigation";
+import { checkIfAdmin } from "@/lib/userauth";
 
 export default async function EventsPage() {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const allEvents = await db.select().from(events);
 
   return (

@@ -6,8 +6,15 @@ import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { teamColumns } from "./TeamColumns";
+import { redirect } from "next/navigation";
+import { checkIfAdmin } from "@/lib/userauth";
 
 export default async function SportsTeamsPage() {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const allTeams = await db
     .select({
       id: sportsTeams.id,

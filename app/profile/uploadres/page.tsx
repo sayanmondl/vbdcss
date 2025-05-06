@@ -6,13 +6,13 @@ import React from "react";
 const Page = async () => {
   const session = await auth();
   if (!session) {
-    redirect("/");
+    redirect("/auth/signin");
   }
 
   const userId = session.user?.id as string;
 
   return (
-    <div className="pagemargin">
+    <div>
       <ResourceUploadForm userId={userId} />
     </div>
   );

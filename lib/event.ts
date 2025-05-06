@@ -1,8 +1,16 @@
-"use server"
-
 import { db } from "@/db";
-import { events} from "@/db/schema";
+import { events } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
+export async function getLatestEvents() {
+  const threeEvents = await db
+    .select()
+    .from(events)
+    .orderBy(desc(events.date))
+    .limit(3);
+
+  return threeEvents;
+}
 
 export async function getPaginatedEvents(page = 1, pageSize = 10) {
   const allEvents = await db.select().from(events);

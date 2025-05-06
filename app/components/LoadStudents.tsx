@@ -1,28 +1,36 @@
-import Student from "./Student"
+import Student from "./Student";
 
 interface StudentData {
-  key: number
-  name: string
-  semester: number
-  imageUrl: string
+  id: string;
+  name: string;
+  year: number | null;
+  image: string | null;
 }
 
 interface LoadStudentsProps {
-  students: StudentData[]
+  students: StudentData[];
 }
 
 const LoadStudents = ({ students }: LoadStudentsProps) => {
   return (
     <div>
       {students.length === 0 ? (
-        <p className="text-center p-4">No students found for the selected semester.</p>
+        <p className="text-center p-4">
+          No students found for the selected year.
+        </p>
       ) : (
         students.map((student) => (
-          <Student key={student.key} name={student.name} sem={student.semester} avatarUrl={student.imageUrl} />
+          <Student
+            key={student.id}
+            id={student.id}
+            name={student.name}
+            year={student.year as number}
+            image={student.image as string}
+          />
         ))
       )}
     </div>
-  )
-}
+  );
+};
 
-export default LoadStudents
+export default LoadStudents;

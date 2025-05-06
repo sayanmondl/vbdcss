@@ -2,12 +2,19 @@ import { db } from "@/db";
 import { tournaments } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import UpdateTournamentForm from "./UpdateTournamentForm";
+import { redirect } from "next/navigation";
+import { checkIfAdmin } from "@/lib/userauth";
 
 export default async function EditTournamentPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const id = Number.parseInt((await params).id);
 
   const tournamentResults = await db

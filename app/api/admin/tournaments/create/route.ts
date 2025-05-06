@@ -1,11 +1,11 @@
-import { auth } from "@/auth";
 import { db } from "@/db";
 import { tournaments } from "@/db/schema";
+import { checkIfAdmin } from "@/lib/userauth";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const session = await auth();
-  if (!session) {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
     return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
   }
 

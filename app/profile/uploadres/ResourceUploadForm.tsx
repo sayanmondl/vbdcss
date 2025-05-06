@@ -310,35 +310,39 @@ export default function ResourceUploadForm({ userId }: { userId: string }) {
                 <SelectValue placeholder="Select a subject" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="computerArchitecture">
+                <SelectItem value="Computer Architecture">
                   Computer Architecture
                 </SelectItem>
-                <SelectItem value="operatingSystems">
+                <SelectItem value="Operating Systems">
                   Operating Systems
                 </SelectItem>
-                <SelectItem value="computerNetworks">
+                <SelectItem value="Computer Networks">
                   Computer Networks
                 </SelectItem>
-                <SelectItem value="databases">Databases</SelectItem>
-                <SelectItem value="algorithms">Algorithms</SelectItem>
-                <SelectItem value="dataStructures">Data Structures</SelectItem>
-                <SelectItem value="java">Java Programming</SelectItem>
-                <SelectItem value="python">Python Programming</SelectItem>
-                <SelectItem value="cProgramming">C Programming</SelectItem>
-                <SelectItem value="machineLearning">
+                <SelectItem value="Databases">Databases</SelectItem>
+                <SelectItem value="Algorithms">Algorithms</SelectItem>
+                <SelectItem value="Data Structures">Data Structures</SelectItem>
+                <SelectItem value="Java Programming">
+                  Java Programming
+                </SelectItem>
+                <SelectItem value="Python Programming">
+                  Python Programming
+                </SelectItem>
+                <SelectItem value="C Programming">C Programming</SelectItem>
+                <SelectItem value="Machine Learning">
                   Machine Learning
                 </SelectItem>
-                <SelectItem value="deepLearning">Deep Learning</SelectItem>
-                <SelectItem value="artificialIntelligence">
+                <SelectItem value="Deep Learning">Deep Learning</SelectItem>
+                <SelectItem value="Artificial Intelligence">
                   Artificial Intelligence
                 </SelectItem>
-                <SelectItem value="cyberSecurity">Cyber Security</SelectItem>
-                <SelectItem value="softwareEngineering">
+                <SelectItem value="Cyber Security">Cyber Security</SelectItem>
+                <SelectItem value="Software Engineering">
                   Software Engineering
                 </SelectItem>
-                <SelectItem value="webDevelopment">Web Development</SelectItem>
-                <SelectItem value="cloudComputing">Cloud Computing</SelectItem>
-                <SelectItem value="computerGraphics">
+                <SelectItem value="Web Development">Web Development</SelectItem>
+                <SelectItem value="Cloud Computing">Cloud Computing</SelectItem>
+                <SelectItem value="Computer Graphics">
                   Computer Graphics
                 </SelectItem>
                 <SelectItem value="other">Other</SelectItem>
@@ -350,7 +354,7 @@ export default function ResourceUploadForm({ userId }: { userId: string }) {
           <Button type="button" variant="outline" className="text-base">
             Cancel
           </Button>
-          <Button type="submit" className="text-base" disabled={uploading}>
+          <Button type="submit" className="text-base bg-blue-dark" disabled={uploading}>
             {uploading ? "Uploading..." : "Upload Resource"}
           </Button>
         </CardFooter>

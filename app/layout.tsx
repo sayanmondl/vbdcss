@@ -3,7 +3,7 @@ import { Barlow_Condensed, Teko } from "next/font/google";
 import "./globals.css";
 
 const barlow = Barlow_Condensed({
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   variable: "--font-barlow",
   subsets: ["latin"]
 });

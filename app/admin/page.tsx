@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import {
   users,
@@ -14,18 +8,18 @@ import {
   sportsTeams,
   tournaments,
 } from "@/db/schema";
+import { checkIfAdmin } from "@/lib/userauth";
 import { count } from "drizzle-orm";
-import {
-  BarChart,
-  Users,
-  FileText,
-  Calendar,
-  Trophy,
-  BookOpen,
-} from "lucide-react";
+import { Users, FileText, Calendar, Trophy, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function AdminDashboard() {
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const [
     usersCount,
     announcementsCount,

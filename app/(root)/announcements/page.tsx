@@ -11,12 +11,12 @@ export default async function Page({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
-  const params = await searchParams;
   const session = await auth();
   if (!session) {
     redirect("/auth/signin");
   }
-
+  const params = await searchParams;
+  
   const page = params.page ? Number.parseInt(params.page, 10) : 1;
   const validPage = isNaN(page) || page < 1 ? 1 : page;
 

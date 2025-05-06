@@ -2,6 +2,17 @@
 
 import { db } from "@/db";
 import { announcements } from "@/db/schema";
+import { desc } from "drizzle-orm";
+
+export async function getLatestAnnouncements() {
+  const threeAnnouncements = await db
+    .select()
+    .from(announcements)
+    .orderBy(desc(announcements.publish))
+    .limit(3);
+
+  return threeAnnouncements;
+}
 
 export async function getPaginatedAnnouncements(page = 1, pageSize = 10) {
   const allAnnouncements = await db.select().from(announcements);

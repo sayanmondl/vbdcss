@@ -1,30 +1,12 @@
 import { auth } from "@/auth";
 import AnnouncementCard from "./AnnouncementCard";
 import Button from "./Button";
-
-const announcements = [
-  {
-    id: 1,
-    date: new Date("2024-10-20"),
-    title: "Seminar about Quantum Computing",
-    info: "The Department of Computer and System Sciences is pleased to announce an upcoming seminar on Quantum Computing. This event will feature distinguished speakers from leading research institutions who will discuss the latest advancements in quantum algorithms, quantum cryptography, and potential applications in various fields.",
-  },
-  {
-    id: 2,
-    date: new Date("2024-09-15"),
-    title: "New Research Lab Opening Ceremony",
-    info: "We are excited to announce the grand opening of our new Advanced AI Research Laboratory. The state-of-the-art facility will support cutting-edge research in artificial intelligence, machine learning, and data science. Faculty and students are invited to attend the ribbon-cutting ceremony followed by demonstrations of ongoing research projects.",
-  },
-  {
-    id: 3,
-    date: new Date("2024-08-05"),
-    title: "Call for Papers: International Conference on Computer Science",
-    info: "The department is hosting the International Conference on Computer Science and Information Technology (ICCSIT) next semester. We invite submissions from researchers, faculty members, and graduate students on topics including but not limited to artificial intelligence, cybersecurity, distributed systems, and computational theory.",
-  },
-];
+import { getLatestAnnouncements } from "@/lib/announcement";
 
 const Load3LatestAnnouncements = async () => {
   const session = await auth();
+
+  const announcements = await getLatestAnnouncements();
   return (
     <div className="pagemargin mt-10" id="announcements">
       <div className="flex items-center">
@@ -66,7 +48,7 @@ const Load3LatestAnnouncements = async () => {
       {session ? (
         <div>
           <div className="space-y-6">
-            {announcements.slice(0, 3).map((announcement) => (
+            {announcements.map((announcement) => (
               <AnnouncementCard
                 key={announcement.id}
                 announcement={announcement}
