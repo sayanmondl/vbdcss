@@ -49,10 +49,12 @@ export default function ShowRes({
   };
   return (
     <div>
+      <a href={`/student/resources/${id}`}>
       <div className="flex mb-2 items-center gap-3">
         <div className="text-lg font-medium text-blue-dark">{name}</div>
         <Badge className="font-medium">{type}</Badge>
       </div>
+      </a>
       <div className="text-sm text-slate-600 flex justify-between items-center">
         {subject}
 

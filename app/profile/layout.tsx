@@ -25,7 +25,7 @@ const Layout = ({
           <Sheet>
             <SheetTitle className="sr-only">Admin Panel</SheetTitle>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="mx-4 mt-3 md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
