@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { resources } from "@/db/schema";
+import { announcements, resources } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
@@ -15,6 +15,17 @@ export async function DELETE(
 
   try {
     const id = Number.parseInt(params.id);
+
+    const resource = await db
+      .select({ uploaderId: resources.uploaderId })
+      .from(resources)
+      .where(eq(announcements.id, id));
+
+    const userId = session.user?.id as string;
+
+    if (resource[0].uploaderId !== userId) {
+      return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
+    }
 
     await db.delete(resources).where(eq(resources.id, id));
 
