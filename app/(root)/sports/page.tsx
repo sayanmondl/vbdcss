@@ -1,10 +1,15 @@
+import LoadTournaments from "@/app/components/LoadLatestSportEvents";
+
 import React from "react";
 
-const Page = () => {
+export interface SearchParams {
+  page?: string;
+}
+
+export default async function Page() {
   return (
-    <div>
+    <div className="pagemargin ">
+      <LoadTournaments />
     </div>
   );
-};
-
-export default Page;
+}

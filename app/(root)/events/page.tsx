@@ -1,4 +1,3 @@
-import LoadAnnouncements from "@/app/components/LoadAnnouncements";
 import LoadEvents from "@/app/components/LoadEvents";
 
 export interface SearchParams {
