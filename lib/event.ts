@@ -1,76 +1,12 @@
-export interface Event {
-  id: number;
-  cover: string;
-  date: Date;
-  title: string;
-  archive: string;
-  description: string;
-}
+"use server"
 
-export async function getEvents() {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+import { db } from "@/db";
+import { events} from "@/db/schema";
 
-  return [
-    {
-      id: 1,
-      cover: "/dummy.jpg",
-      date: new Date("2025-1-12"),
-      title: "Freshers Welcome Event",
-      archive: "https://drive.google.com",
-      description:
-        "On 27th October, the freshers event was organized to welcome all the new students",
-    },
-    {
-      id: 2,
-      cover: "/dummy.jpg",
-      date: new Date("2025-1-12"),
-      title: "Freshers Welcome Event",
-      archive: "https://drive.google.com",
-      description:
-        "On 27th October, the freshers event was organized to welcome all the new students",
-    },
-    {
-      id: 3,
-      cover: "/dummy2.jpg",
-      date: new Date("2025-1-12"),
-      title: "Freshers Welcome Event",
-      archive: "https://drive.google.com",
-      description:
-        "On 27th October, the freshers event was organized to welcome all the new students",
-    },
-    {
-      id: 4,
-      cover: "/dummy2.jpg",
-      date: new Date("2025-1-12"),
-      title: "Freshers Welcome Event",
-      archive: "https://drive.google.com",
-      description:
-        "On 27th October, the freshers event was organized to welcome all the new students",
-    },
-    {
-      id: 5,
-      cover: "/dummy.jpg",
-      date: new Date("2025-1-12"),
-      title: "Freshers Welcome Event",
-      archive: "https://drive.google.com",
-      description:
-        "On 27th October, the freshers event was organized to welcome all the new students",
-    },
-    {
-      id: 6,
-      cover: "/dummy.jpg",
-      date: new Date("2025-1-12"),
-      title: "Freshers Welcome Event",
-      archive: "https://drive.google.com",
-      description:
-        "On 27th October, the freshers event was organized to welcome all the new students",
-    },
-  ];
-}
 
 export async function getPaginatedEvents(page = 1, pageSize = 10) {
-  const events = await getEvents();
-  const totalItems = events.length;
+  const allEvents = await db.select().from(events);
+  const totalItems = allEvents.length;
   const totalPages = Math.ceil(totalItems / pageSize);
 
   const validPage = Math.max(1, Math.min(page, totalPages));
@@ -79,7 +15,7 @@ export async function getPaginatedEvents(page = 1, pageSize = 10) {
   const endIndex = Math.min(startIndex + pageSize, totalItems);
 
   return {
-    data: events.slice(startIndex, endIndex),
+    data: allEvents.slice(startIndex, endIndex),
     pagination: {
       currentPage: validPage,
       totalPages,
