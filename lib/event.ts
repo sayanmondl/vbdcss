@@ -1,3 +1,7 @@
+import { db } from "@/db";
+import { announcements, events } from "@/db/schema";
+import { desc } from "drizzle-orm";
+
 export interface Event {
   id: number;
   cover: string;
@@ -66,6 +70,16 @@ export async function getEvents() {
         "On 27th October, the freshers event was organized to welcome all the new students",
     },
   ];
+}
+
+export async function getLatestEvents() {
+  const threeEvents = await db
+    .select()
+    .from(events)
+    .orderBy(desc(events.date))
+    .limit(3);
+
+  return threeEvents;
 }
 
 export async function getPaginatedEvents(page = 1, pageSize = 10) {

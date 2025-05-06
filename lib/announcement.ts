@@ -1,3 +1,9 @@
+"use server"
+
+import { db } from "@/db";
+import { announcements } from "@/db/schema";
+import { desc } from "drizzle-orm";
+
 export interface Announcement {
   id: number;
   date: Date;
@@ -196,6 +202,16 @@ export async function getAnnouncements() {
       info: "The sun dipped below the horizon, casting a warm orange glow across the quiet countryside. A gentle breeze rustled through the tall grass, carrying the scent of earth and wildflowers. In the distance, a small farmhouse stood with its windows glowing softly, a sign of life in the fading light.",
     },
   ];
+}
+
+export async function getLatestAnnouncements() {
+  const threeAnnouncements = await db
+    .select()
+    .from(announcements)
+    .orderBy(desc(announcements.publish))
+    .limit(3);
+
+  return threeAnnouncements;
 }
 
 export async function getPaginatedAnnouncements(page = 1, pageSize = 10) {
