@@ -1,67 +1,59 @@
-import SportEventCard from "./SportEventCard";
-import Button from "./Button";
+import { PaginationControls } from "./PaginationControls";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
+import { getAllTournaments } from "@/lib/tournament";
+import TournamentCard from "./TournamentCard";
 
-const sports = [
-  {
-    id: 1,
-    date: new Date("2024-10-20"),
-    name: "SIKSHA-BHAVANA FOOTBALL TOURNAMENT",
-    imageUrl: "/footb.jpg",
-    location: "University Main Ground",
-    participants: "8 teams",
-  },
-  {
-    id: 2,
-    date: new Date("2023-11-02"),
-    name: "INTER-DEPARTMENT CRICKET TOURNAMENT",
-    imageUrl: "/cric.jpg",
-    location: "Cricket Stadium",
-    participants: "12 teams",
-  },
-];
+async function TournamentsList() {
+  const tournaments = await getAllTournaments();
 
-const LoadLatestSportEvents = () => {
-  return (
-    <div className="pagemargin mt-20" id="sports">
-      <div className="flex items-center">
-        <a href="/#sports">
-          <div className="flex w-full items-center gap-2">
-            <div className="w-4 h-12 bg-blue-dark"></div>
-            <h1 className="font-teko text-3xl font-medium text-nowrap mt-2">
-              SPORTS AND ATHLETICS
-            </h1>
-          </div>
-        </a>
-        <div className="flex-1"></div>
-        <a href="/sports" className="hidden sm:block">
-          <Button text="View All Tournaments" />
-        </a>
-      </div>
-
-      <div className="mt-4 mb-8">
-        <p className="text-blue-dark font-barlow">
-          Stay updated with the latest sporting events and tournaments. Join us
-          to celebrate athleticism and team spirit!
+  if (tournaments.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <h3 className="text-lg font-medium">No tournaments found</h3>
+        <p className="text-muted-foreground">
+          There are currently no tournaments to display.
         </p>
       </div>
+    );
+  }
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
-        {sports.map((sport) => (
-          <SportEventCard
-            key={sport.id}
-            date={sport.date}
-            name={sport.name}
-            imageUrl={sport.imageUrl}
-            location={sport.location}
-            participants={sport.participants}
-          />
-        ))}
-      </div>
-      <a href="/sports" className="flex sm:hidden justify-center">
-        <Button text="View All Tournaments" />
-      </a>
+  return (
+    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {tournaments.map((tournament) => (
+        <TournamentCard key={tournament.id} tournament={tournament} />
+      ))}
     </div>
   );
-};
+}
 
-export default LoadLatestSportEvents;
+function TournamentLoading() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className="flex flex-col space-y-3">
+          <Skeleton className="h-[250px] w-full rounded-xl" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function LoadTournaments() {
+  return (
+    <div className="container">
+      <div className="mb-4 flex">
+        <h1 className="barlow-heading-thin mb-2">Events:</h1>
+        <div className="flex-1"></div>
+      </div>
+
+      <Suspense fallback={<TournamentLoading />}>
+        <TournamentsList />
+      </Suspense>
+    </div>
+  );
+}

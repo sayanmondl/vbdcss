@@ -16,7 +16,7 @@ async function EventsList({ page }: LoadEventsProps) {
       <div className="text-center py-10">
         <h3 className="text-lg font-medium">No events found</h3>
         <p className="text-muted-foreground">
-          There are currently no events to display.
+          There are currently no events to display. 
         </p>
       </div>
     );
