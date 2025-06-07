@@ -1,5 +1,4 @@
-import LoadTournaments from "@/app/components/LoadLatestSportEvents";
-
+import LoadTournaments from "@/app/components/LoadTournaments";
 import React from "react";
 
 export interface SearchParams {
