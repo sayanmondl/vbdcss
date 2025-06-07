@@ -40,7 +40,7 @@ export async function PUT(
   try {
     const id = (await params).id;
     const body = await request.json();
-    const { email, name, role, year, active, about, links, goodIn, image } =
+    const { email, name, role, isAdmin, year, active, about, links, goodIn, image } =
       body;
 
     await db
@@ -49,6 +49,7 @@ export async function PUT(
         email: email,
         name: name,
         role: role,
+        isAdmin: isAdmin,
         year: year,
         active: active,
         about: about,

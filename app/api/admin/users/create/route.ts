@@ -4,20 +4,31 @@ import { checkIfAdmin } from "@/lib/userauth";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  try {
-    const isAdmin = await checkIfAdmin();
-    if (!isAdmin) {
-      return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
-    }
+  const isAdmin = await checkIfAdmin();
+  if (!isAdmin) {
+    return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
+  }
 
+  try {
     const body = await request.json();
-    const { email, name, role, year, active, about, links, goodIn, image } =
-      body;
+    const {
+      email,
+      name,
+      role,
+      isAdmin,
+      year,
+      active,
+      about,
+      links,
+      goodIn,
+      image,
+    } = body;
 
     await db.insert(users).values({
       email: email,
       name: name,
       role: role,
+      isAdmin: isAdmin,
       year: year,
       active: active,
       about: about,
