@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getResources } from "@/lib/resource";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,12 +9,18 @@ import { getIcon } from "@/app/components/ResourceCard";
 import { db } from "@/db";
 import { resources } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { auth } from "@/auth";
 
 export default async function ResourcePage({
   params,
 }: {
   params: Promise<{ resourceId: string }>;
 }) {
+  const session = await auth();
+  if (!session) {
+    redirect("/auth/signin");
+  }
+
   const resourceId = Number.parseInt((await params).resourceId);
   const allresources = await getResources();
   const selectedResources = await db

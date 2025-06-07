@@ -21,7 +21,7 @@ export default async function ProfilePage({
 }) {
   const session = await auth();
   if (!session) {
-    redirect("/");
+    redirect("/auth/signin");
   }
 
   const { studentId } = await params;
