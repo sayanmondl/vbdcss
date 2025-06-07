@@ -28,11 +28,11 @@ const Page = async ({ params }: { params: Promise<{ eventId: string }> }) => {
       <div className="relative">
         <div className="w-full h-[250px] sm:h-[400px] overflow-hidden flex rounded-lg items-center bg-black">
           <Image
-            src={eventDetails.coverUrl ?? ""}
+            src={eventDetails.coverUrl ?? "/event_placeholder.svg"}
             alt="cover"
             width={1000}
             height={400}
-            className="opacity-50"
+            className="opacity-50 w-full"
           />
         </div>
         <div className="absolute bottom-0 left-2 sm:left-6">

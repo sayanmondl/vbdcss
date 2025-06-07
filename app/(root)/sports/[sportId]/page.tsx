@@ -12,8 +12,6 @@ import { tournaments } from "@/db/schema";
 import { formatDate } from "@/lib/utils";
 import { eq } from "drizzle-orm";
 import { CalendarIcon, MapPinIcon, Trophy } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const Page = async ({ params }: { params: Promise<{ sportId: string }> }) => {
@@ -28,25 +26,24 @@ const Page = async ({ params }: { params: Promise<{ sportId: string }> }) => {
     <div className="pagemargin">
       <div className="mb-6">
         <a href="/sports">
-          <Button variant="outline" className="mb-6">
+          <Button variant="outline" className="mb-6 font-barlow">
             ← Back to Tournaments
           </Button>
         </a>
       </div>
 
-      <div className="">
+      <div className="font-barlow">
         <div className="md:col-span-2">
           <Card>
             <CardHeader>
               <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-2xl md:text-3xl">
-                    {tournament.name}
-                  </CardTitle>
-                  <CardDescription className="mt-2">
-                    <Badge className="mr-2">{tournament.sport}</Badge>
-                  </CardDescription>
-                </div>
+                <CardTitle className="text-2xl md:text-3xl font-teko font-medium text-blue-dark">
+                  {tournament.name}
+                </CardTitle>
+                <div className="flex-1"></div>
+                <CardDescription className="mt-2">
+                  <Badge className="mr-2">{tournament.sport}</Badge>
+                </CardDescription>
               </div>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -65,7 +62,7 @@ const Page = async ({ params }: { params: Promise<{ sportId: string }> }) => {
         <div className="my-8">
           <Card>
             <CardHeader>
-              <CardTitle>Tournament Details</CardTitle>
+              <CardTitle className="text-lg">Tournament Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-start">
