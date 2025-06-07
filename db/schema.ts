@@ -20,7 +20,6 @@ export const USER_ROLE_ENUM = pgEnum("user_role", [
   "student",
   "scholar",
   "prof",
-  "admin",
 ]);
 export const RESOURCE_TYPE_ENUM = pgEnum("resource_type", [
   "code",
@@ -39,6 +38,7 @@ export const users = pgTable(
     role: USER_ROLE_ENUM("role").default("student").notNull(),
     year: integer("year"),
     active: boolean("active").default(true).notNull(),
+    isAdmin: boolean("is_admin").default(false).notNull(),
     about: text("about"),
     links: text("links")
       .array()
