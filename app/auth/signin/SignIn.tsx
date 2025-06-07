@@ -59,8 +59,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="p-10 h-screen">
-      <div className="flex rounded-3xl overflow-hidden h-full bg-blue-fade border">
+    <div className="p-4 sm:p-10 h-screen">
+      <div className="flex-col flex sm:flex-row sm rounded-3xl overflow-hidden h-full bg-blue-fade border">
         <div className="flex-1 flex items-center justify-center p-8">
           <div className="w-full max-w-md font-barlow">
             <div className="mb-6">
