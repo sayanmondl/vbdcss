@@ -13,16 +13,12 @@ export async function checkIfAdmin() {
   }
   const userId = session.user?.id as string;
 
-  const userRole = await db
-    .select({ role: users.role })
+  const role = await db
+    .select({ isAdmin: users.isAdmin })
     .from(users)
     .where(eq(users.id, userId));
 
-  const role = userRole[0].role;
+  const isAdmin = role[0].isAdmin;
 
-  if (role === "admin") {
-    return true;
-  } else {
-    return false;
-  }
+  return isAdmin;
 }
