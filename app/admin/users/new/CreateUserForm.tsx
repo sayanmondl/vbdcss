@@ -67,6 +67,7 @@ const CreateUserForm = () => {
       ? Number.parseInt(formData.get("year") as string)
       : null;
     const active = formData.get("active") === "on";
+    const isAdmin = formData.get("isAdmin") === "on";
     const about = formData.get("about") as string;
 
     if (file) {
@@ -96,6 +97,7 @@ const CreateUserForm = () => {
           email,
           name,
           role,
+          isAdmin,
           year,
           active,
           about,
@@ -153,9 +155,13 @@ const CreateUserForm = () => {
                   <SelectItem value="student">Student</SelectItem>
                   <SelectItem value="scholar">Scholar</SelectItem>
                   <SelectItem value="prof">Professor</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="flex items-center space-x-2 pt-2">
+              <Checkbox id="isAdmin" name="isAdmin" />
+              <Label htmlFor="isAdmin">Set Admin</Label>
             </div>
 
             <div className="space-y-2">

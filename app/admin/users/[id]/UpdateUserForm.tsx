@@ -33,6 +33,7 @@ const UpdateUserForm = ({ user }: UserProps) => {
   const [email, setEmail] = useState(user.email);
   const [name, setName] = useState(user.name);
   const [role, setRole] = useState(user.role);
+  const [isAdmin, setIsAdmin] = useState<boolean>(user.isAdmin); 
   const [year, setYear] = useState<number | undefined>(user.year || undefined);
   const [active, setActive] = useState(user.active);
   const [about, setAbout] = useState(user.about || "");
@@ -105,6 +106,7 @@ const UpdateUserForm = ({ user }: UserProps) => {
           email,
           name,
           role,
+          isAdmin,
           year,
           active,
           about,
@@ -163,9 +165,17 @@ const UpdateUserForm = ({ user }: UserProps) => {
                   <SelectItem value="student">Student</SelectItem>
                   <SelectItem value="scholar">Scholar</SelectItem>
                   <SelectItem value="prof">Professor</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="flex items-center space-x-2 pt-2">
+              <Checkbox
+                id="isAdmin"
+                checked={isAdmin}
+                onCheckedChange={(checked) => setIsAdmin(Boolean(checked))}
+              />
+              <Label htmlFor="active">Active</Label>
             </div>
 
             <div className="space-y-2">
