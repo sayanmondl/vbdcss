@@ -4,7 +4,8 @@ interface User {
   emailVerified?: Date | null;
   name: string;
   image?: string | null;
-  role: "student" | "scholar" | "prof" | "admin" | string;
+  role: "student" | "scholar" | "prof" | string;
+  isAdmin: boolean;
   year?: number | null;
   active: boolean;
   about?: string | null;
