@@ -13,7 +13,7 @@ export async function getStudents() {
       image: users.image,
     })
     .from(users)
-    .where(or(eq(users.role, "student"), eq(users.role, "admin")));
+    .where(eq(users.role, "student"));
 
   return students;
 }
