@@ -30,7 +30,7 @@
   }
 
   .pagemargin {
-    @apply py-4 px-6 xs:px-10 sm:px-20 md:px-28 lg:px-40;
+    @apply py-8 px-6 xs:px-10 sm:px-20 md:px-28 lg:px-40;
   }
 
   .para {
