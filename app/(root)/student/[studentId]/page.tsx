@@ -14,20 +14,28 @@ import { db } from "@/db";
 import { resources, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-export default async function ProfilePage() {
+export default async function ProfilePage({
+  params,
+}: {
+  params: Promise<{ studentId: string }>;
+}) {
   const session = await auth();
   if (!session) {
     redirect("/");
   }
 
-  const userId = session.user?.id as string;
-  const studentData = await db.select().from(users).where(eq(users.id, userId));
+  const { studentId } = await params;
+  const selectedStudent = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, studentId));
 
-  const student = studentData[0];
+  const student = selectedStudent[0];
+
   const res = await db
     .select()
     .from(resources)
-    .where(eq(resources.uploaderId, userId));
+    .where(eq(resources.uploaderId, student.id));
 
   const getYearLabel = (year: number) => {
     const suffixes = ["st", "nd", "rd", "th"];
@@ -45,7 +53,7 @@ export default async function ProfilePage() {
   };
 
   return (
-    <div>
+    <div className="pagemargin">
       <div className="min-h-screen font-barlow">
         <main className="px-4 py-6 md:px-6 md:py-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_2fr]">
@@ -190,15 +198,19 @@ export default async function ProfilePage() {
                         key={index}
                         className="min-h-27 rounded-md border py-4 bg-blue-fade"
                       >
-                        <div className="flex mb-2 items-center gap-3">
-                          <div className="text-lg font-medium text-blue-dark">
-                            {resource.name}
+                        <a href={`/student/resources/${resource.id}`}>
+                          <div className="flex mb-2 items-center gap-3">
+                            <div className="text-lg font-medium text-blue-dark">
+                              {resource.name}
+                            </div>
+                            <Badge className="font-medium">
+                              {resource.type}
+                            </Badge>
                           </div>
-                          <Badge className="font-medium">{resource.type}</Badge>
-                        </div>
-                        <div className="text-sm text-slate-600 flex justify-between items-center">
-                          {resource.subject}
-                        </div>
+                          <div className="text-sm text-slate-600 flex justify-between items-center">
+                            {resource.subject}
+                          </div>
+                        </a>
                       </CardContent>
                     ))}
                   </div>

@@ -6,15 +6,23 @@ import { Separator } from "@/components/ui/separator";
 import { Download, User, BookOpen, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { getIcon } from "@/app/components/ResourceCard";
+import { db } from "@/db";
+import { resources } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export default async function ResourcePage({
   params,
 }: {
   params: Promise<{ resourceId: string }>;
 }) {
-  const { resourceId } = await params;
-  const resources = await getResources();
-  const resource = resources.find((r) => r.id === resourceId);
+  const resourceId = Number.parseInt((await params).resourceId);
+  const allresources = await getResources();
+  const selectedResources = await db
+    .select()
+    .from(resources)
+    .where(eq(resources.id, resourceId));
+
+  const resource = selectedResources[0];
 
   if (!resource) {
     notFound();
@@ -36,9 +44,15 @@ export default async function ResourcePage({
   return (
     <div className="pagemargin">
       <div className="mb-6 group">
-        <Link href="/student/resources" className="button-white flex gap-3 w-min text-nowrap items-center !font-normal">
-        <ArrowLeft size={16} className="text-blue-middark group-hover:text-white duration-200"/>
-        All Resources
+        <Link
+          href="/student/resources"
+          className="button-white flex gap-3 w-min text-nowrap items-center !font-normal"
+        >
+          <ArrowLeft
+            size={16}
+            className="text-blue-middark group-hover:text-white duration-200"
+          />
+          All Resources
         </Link>
       </div>
 
@@ -56,8 +70,7 @@ export default async function ResourcePage({
                 className="w-full gap-2 bg-blue-dark hover:bg-blue-medium font-barlow text-base"
               >
                 <a
-                  href={resource.fileUrl}
-                  download
+                  href={`${resource.fileUrl.replace("/upload/", "/upload/fl_attachment/")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -72,7 +85,7 @@ export default async function ResourcePage({
                 <div className="flex items-center gap-2 text-sm">
                   <User className="h-4 w-4 text-muted-foreground" />
                   <span className="font-barlow text-base">
-                    Uploaded by {resource.uploader}
+                    Uploaded by {resource.uploaderId}
                   </span>
                 </div>
 
@@ -106,7 +119,7 @@ export default async function ResourcePage({
               Related Resources
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {resources
+              {allresources
                 .filter(
                   (r) => r.id !== resource.id && r.subject === resource.subject
                 )
