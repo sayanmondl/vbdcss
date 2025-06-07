@@ -28,7 +28,7 @@ export function ResourceCard({
 }) {
   return (
     <Link href={`/student/resources/${id}`}>
-      <Card className="h-full overflow-hidden transition-all hover:shadow-md hover:-translate-y-1">
+      <Card className="h-full overflow-hidden rounded-md transition-all hover:shadow-md hover:-translate-y-1">
         <div
           className={cn(
             "h-32 flex items-center justify-center",

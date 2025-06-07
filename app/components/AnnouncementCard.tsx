@@ -29,14 +29,17 @@ const AnnouncementCard = ({ announcement }: AnnouncementCardProps) => {
               <h2 className="font-teko text-xl md:text-2xl font-medium text-blue-dark group-hover:text-blue-middark transition-colors mb-2">
                 {announcement.title}
               </h2>
-              <span className="text-blue-dark opacity-0 group-hover:opacity-100 transition-opacity">
-                <ChevronRight className="h-5 w-5" />
-              </span>
+              <div className="flex gap-3 items-center">
+                {announcement.isImportant && (
+                  <div className="bg-purple-600 text-white text-sm rounded-md w-min px-2 py-0.5 font-barlow">
+                    Important
+                  </div>
+                )}
+                <span className="text-blue-dark opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ChevronRight className="h-5 w-5" />
+                </span>
+              </div>
             </div>
-
-            {announcement.isImportant && (
-              <div className="bg-purple-400">Important</div>
-            )}
 
             <p className="font-barlow text-gray-600 line-clamp-3 mb-3">
               {announcement.info}

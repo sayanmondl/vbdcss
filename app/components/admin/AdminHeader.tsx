@@ -24,7 +24,7 @@ export function AdminHeader() {
           <Sidepanel />
         </SheetContent>
       </Sheet>
-      <div className="ml-auto flex items-center space-x-4">
+      <div className="flex-1 items-center justify-between space-x-4 ml-2">
         <Nav />
       </div>
     </header>

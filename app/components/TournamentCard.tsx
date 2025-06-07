@@ -10,7 +10,7 @@ const TournamentCard = ({ tournament }: TournamentProp) => {
     <div className="w-full max-w-md bg-white font-barlow rounded-lg border shadow-sm overflow-hidden">
       <div className="relative">
         <img
-          src="/foot.jpeg"
+          src="/tournament_placeholder.svg"
           alt={tournament.name}
           className="w-full h-56 object-cover"
         />

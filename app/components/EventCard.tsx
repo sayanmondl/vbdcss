@@ -18,12 +18,12 @@ const EventCard = ({ event }: EventCardProps) => {
           alt="event-cover"
           className="w-full h-full object-cover group-hover:scale-110 duration-200"
         />
-        <div className="bg-black absolute z-10 w-full h-full left-0 top-0 opacity-55"></div>
-        <div className="flex absolute z-20 top-0 left-0 text-white font-barlow font-medium items-center gap-2 p-4">
+        <div className="bg-black absolute w-full h-full left-0 top-0 opacity-55"></div>
+        <div className="flex absolute top-0 left-0 text-white font-barlow font-medium items-center gap-2 p-4">
           <Calendar size={20} />
           <p className="text-lg">{formatDate(event.date as Date)}</p>
         </div>
-        <div className="flex absolute z-20 bottom-0 left-0 text-white font-barlow font-medium items-center gap-2 p-4">
+        <div className="flex absolute bottom-0 left-0 text-white font-barlow font-medium items-center gap-2 p-4">
           <MapPin size={20} />
           <p className="text-lg">{event.location}</p>
         </div>
