@@ -2,7 +2,7 @@ import Button, { ButtonWhite } from "../components/Button";
 import Footer from "../components/Footer";
 import Load3LatestAnnouncements from "../components/Load3LatestAnnouncements";
 import Load3LatestEvents from "../components/Load3LatestEvents";
-import LoadLatestSportEvents from "../components/LoadLatestSportEvents";
+import Load3LatestTournaments from "../components/Load3LatestTournamnets";
 
 export default async function Home() {
   return (
@@ -30,7 +30,7 @@ export default async function Home() {
       </div>
       <Load3LatestEvents />
       <Load3LatestAnnouncements />
-      <LoadLatestSportEvents />
+      <Load3LatestTournaments />
       <div className="h-36"></div>
       <Footer />
     </main>
