@@ -14,14 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CircleAlert, CircleCheckBig } from "lucide-react";
+import { ArrowBigRight, CircleAlert, CircleCheckBig } from "lucide-react";
 import { useState } from "react";
 import { User } from "@/types";
 
@@ -32,7 +25,6 @@ interface UserProps {
 const UpdateForm = ({ user }: UserProps) => {
   const [email, setEmail] = useState(user.email);
   const [name, setName] = useState(user.name);
-  const [role, setRole] = useState(user.role);
   const [year, setYear] = useState<number | undefined>(user.year || undefined);
   const [active, setActive] = useState(user.active);
   const [about, setAbout] = useState(user.about || "");
@@ -42,6 +34,7 @@ const UpdateForm = ({ user }: UserProps) => {
   const [newSkill, setNewSkill] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>(user.image || null);
   const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -66,6 +59,20 @@ const UpdateForm = ({ user }: UserProps) => {
 
   const removeSkill = (index: number) => {
     setGoodIn(goodIn.filter((_, i) => i !== index));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0] || null;
+    setFile(selectedFile);
+
+    if (selectedFile) {
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setPreviewUrl(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setPreviewUrl(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -98,13 +105,12 @@ const UpdateForm = ({ user }: UserProps) => {
     }
 
     try {
-      const res = await fetch(`/api/admin/users/${user.id}`, {
+      const res = await fetch(`/api/users/${user.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
           name,
-          role,
           year,
           active,
           about,
@@ -154,21 +160,6 @@ const UpdateForm = ({ user }: UserProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="role">Role</Label>
-              <Select value={role} onValueChange={setRole}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="student">Student</SelectItem>
-                  <SelectItem value="scholar">Scholar</SelectItem>
-                  <SelectItem value="prof">Professor</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
               <Label htmlFor="year">Year</Label>
               <Input
                 id="year"
@@ -196,24 +187,36 @@ const UpdateForm = ({ user }: UserProps) => {
 
             <div className="space-y-2">
               <Label htmlFor="image">Profile Image</Label>
-              <Input
-                id="image"
-                type="file"
-                onChange={(e) => setFile(e.target.files?.[0] || null)}
-              />
-              {imageUrl && (
-                <p className="text-sm text-gray-600">
-                  Current image:{" "}
-                  <a
-                    href={imageUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    View image
-                  </a>
-                </p>
-              )}
+              <div className="flex items-center space-x-4">
+                <label
+                  htmlFor="image"
+                  className="cursor-pointer bg-blue-dark hover:bg-blue-middark text-white font-medium py-2 px-4 rounded-md shadow transition duration-300"
+                >
+                  Upload Image
+                </label>
+                <input
+                  id="image"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </div>
+              <div className="flex gap-5">
+                {imageUrl && (
+                  <img
+                    src={imageUrl}
+                    alt="current-profile-image"
+                    className="mt-2 rounded w-32 h-32 object-cover"
+                  />
+                )}
+                {previewUrl && (
+                  <img
+                    src={previewUrl}
+                    alt="preview"
+                    className="mt-2 rounded w-32 h-32 object-cover"
+                  />
+                )}
+              </div>
             </div>
 
             <div className="space-y-2">

@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ExternalLink, Mail, User, X } from "lucide-react";
+import { ExternalLink, Link, Mail } from "lucide-react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
@@ -30,12 +29,6 @@ export default async function ProfilePage() {
     .select()
     .from(resources)
     .where(eq(resources.uploaderId, userId));
-
-  const getYearLabel = (year: number) => {
-    const suffixes = ["st", "nd", "rd", "th"];
-    const suffix = year <= 3 ? suffixes[year - 1] : suffixes[3];
-    return `${year}${suffix} Year`;
-  };
 
   const getDomainFromUrl = (url: string) => {
     try {
@@ -76,7 +69,7 @@ export default async function ProfilePage() {
                   </h2>
                   <div className="flex items-center justify-center gap-2 mt-1 font-medium">
                     <Badge variant="outline" className="font-medium">
-                      {getYearLabel(student.year ?? 0)}
+                      {student.year?.toString() ?? ""}
                     </Badge>
                     <Badge variant="secondary" className="font-medium">
                       {student.role}
@@ -116,6 +109,25 @@ export default async function ProfilePage() {
                   ))}
                 </CardContent>
               </Card>
+
+              {student.isAdmin ? (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg font-medium">Admin</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-blue-600">
+                    <a
+                      href="/admin"
+                      className="flex items-center gap-2 p-2 text-sm text-blue-600 bg-slate-100 rounded-md transition-colors"
+                    >
+                      <Link className="w-4 h-4 text-blue-600" />
+                      <span>Go to Admin panel</span>
+                    </a>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div></div>
+              )}
             </div>
 
             <div className="space-y-6">
