@@ -64,8 +64,9 @@ const CreateUserForm = () => {
     const name = formData.get("name") as string;
     const role = formData.get("role") as string;
     const year = formData.get("year")
-      ? Number.parseInt(formData.get("year") as string)
-      : null;
+    ? Number.parseInt(formData.get("year") as string)
+    : null;
+    const semester = formData.get("semester") as string;
     const active = formData.get("active") === "on";
     const isAdmin = formData.get("isAdmin") === "on";
     const about = formData.get("about") as string;
@@ -99,6 +100,7 @@ const CreateUserForm = () => {
           role,
           isAdmin,
           year,
+          semester,
           active,
           about,
           links,
@@ -172,6 +174,26 @@ const CreateUserForm = () => {
                 type="number"
                 placeholder="Enter year"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="semester">Semester</Label>
+              <Select name="semester" defaultValue="_">
+                <SelectTrigger>
+                  <SelectValue placeholder="Select semester" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="_">--</SelectItem>
+                  <SelectItem value="I">I</SelectItem>
+                  <SelectItem value="II">II</SelectItem>
+                  <SelectItem value="III">III</SelectItem>
+                  <SelectItem value="IV">IV</SelectItem>
+                  <SelectItem value="V">V</SelectItem>
+                  <SelectItem value="VI">VI</SelectItem>
+                  <SelectItem value="VII">VII</SelectItem>
+                  <SelectItem value="VIII">VIII</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">

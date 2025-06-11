@@ -40,7 +40,7 @@ export async function PUT(
   try {
     const id = (await params).id;
     const body = await request.json();
-    const { email, name, role, isAdmin, year, active, about, links, goodIn, image } =
+    const { email, name, role, isAdmin, year, semester, active, about, links, goodIn, image } =
       body;
 
     await db
@@ -51,6 +51,7 @@ export async function PUT(
         role: role,
         isAdmin: isAdmin,
         year: year,
+        semester: semester,
         active: active,
         about: about,
         links: links,

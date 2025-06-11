@@ -71,6 +71,9 @@ export default async function ProfilePage() {
                     <Badge variant="outline" className="font-medium">
                       {student.year?.toString() ?? ""}
                     </Badge>
+                    <Badge variant="outline" className="font-medium">
+                      SEM - {student.semester}
+                    </Badge>
                     <Badge variant="secondary" className="font-medium">
                       {student.role}
                     </Badge>

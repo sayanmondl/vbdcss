@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { users } from "@/db/schema";
-import { eq, or } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export async function getStudents() {
   const students = db
@@ -10,6 +10,7 @@ export async function getStudents() {
       id: users.id,
       name: users.name,
       year: users.year,
+      semester: users.semester,
       image: users.image,
     })
     .from(users)

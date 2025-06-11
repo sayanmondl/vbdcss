@@ -33,8 +33,9 @@ const UpdateUserForm = ({ user }: UserProps) => {
   const [email, setEmail] = useState(user.email);
   const [name, setName] = useState(user.name);
   const [role, setRole] = useState(user.role);
-  const [isAdmin, setIsAdmin] = useState<boolean>(user.isAdmin); 
+  const [isAdmin, setIsAdmin] = useState<boolean>(user.isAdmin);
   const [year, setYear] = useState<number | undefined>(user.year || undefined);
+  const [semester, setSemester] = useState(user.semester);
   const [active, setActive] = useState(user.active);
   const [about, setAbout] = useState(user.about || "");
   const [links, setLinks] = useState<string[]>(user.links || []);
@@ -108,6 +109,7 @@ const UpdateUserForm = ({ user }: UserProps) => {
           role,
           isAdmin,
           year,
+          semester,
           active,
           about,
           links,
@@ -191,6 +193,26 @@ const UpdateUserForm = ({ user }: UserProps) => {
                 }
                 placeholder="Enter year"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="semester">Semester</Label>
+              <Select value={semester} onValueChange={setSemester}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select semester" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="_">--</SelectItem>
+                  <SelectItem value="I">I</SelectItem>
+                  <SelectItem value="II">II</SelectItem>
+                  <SelectItem value="III">III</SelectItem>
+                  <SelectItem value="IV">IV</SelectItem>
+                  <SelectItem value="V">V</SelectItem>
+                  <SelectItem value="VI">VI</SelectItem>
+                  <SelectItem value="VII">VII</SelectItem>
+                  <SelectItem value="VIII">VIII</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">

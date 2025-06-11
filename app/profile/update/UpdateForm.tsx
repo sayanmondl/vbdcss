@@ -17,6 +17,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowBigRight, CircleAlert, CircleCheckBig } from "lucide-react";
 import { useState } from "react";
 import { User } from "@/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface UserProps {
   user: User;
@@ -25,7 +32,6 @@ interface UserProps {
 const UpdateForm = ({ user }: UserProps) => {
   const [email, setEmail] = useState(user.email);
   const [name, setName] = useState(user.name);
-  const [year, setYear] = useState<number | undefined>(user.year || undefined);
   const [active, setActive] = useState(user.active);
   const [about, setAbout] = useState(user.about || "");
   const [links, setLinks] = useState<string[]>(user.links || []);
@@ -111,7 +117,6 @@ const UpdateForm = ({ user }: UserProps) => {
         body: JSON.stringify({
           email,
           name,
-          year,
           active,
           about,
           links,
@@ -156,21 +161,6 @@ const UpdateForm = ({ user }: UserProps) => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter user name"
                 required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="year">Year</Label>
-              <Input
-                id="year"
-                type="number"
-                value={year || ""}
-                onChange={(e) =>
-                  setYear(
-                    e.target.value ? Number.parseInt(e.target.value) : undefined
-                  )
-                }
-                placeholder="Enter year"
               />
             </div>
 

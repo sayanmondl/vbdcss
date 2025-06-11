@@ -26,6 +26,17 @@ export const RESOURCE_TYPE_ENUM = pgEnum("resource_type", [
   "notes",
   "pyqs",
 ]);
+export const SEMESTER_ENUM = pgEnum("sem", [
+  "I",
+  "II",
+  "III",
+  "IV",
+  "V",
+  "VI",
+  "VII",
+  "VIII",
+  "_",
+]);
 
 export const users = pgTable(
   "users",
@@ -37,6 +48,7 @@ export const users = pgTable(
     image: text("image"),
     role: USER_ROLE_ENUM("role").default("student").notNull(),
     year: integer("year"),
+    semester: SEMESTER_ENUM("semester").default("_").notNull(),
     active: boolean("active").default(true).notNull(),
     isAdmin: boolean("is_admin").default(false).notNull(),
     about: text("about"),
