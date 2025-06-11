@@ -6,6 +6,17 @@ interface User {
   image?: string | null;
   role: "student" | "scholar" | "prof" | string;
   isAdmin: boolean;
+  semester:
+    | "_"
+    | "I"
+    | "II"
+    | "III"
+    | "IV"
+    | "V"
+    | "VI"
+    | "VII"
+    | "VIII"
+    | string;
   year?: number | null;
   active: boolean;
   about?: string | null;
