@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import React from "react";
 
-const Button = ({ text }: { text: String }) => {
+const Button = ({ text }: { text: string }) => {
   return (
     <button className="button-default flex text-nowrap items-center gap-4">
       {text}
@@ -10,7 +10,7 @@ const Button = ({ text }: { text: String }) => {
   );
 };
 
-export const ButtonWhite = ({ text }: { text: String }) => {
+export const ButtonWhite = ({ text }: { text: string }) => {
   return (
     <button className="button-white flex items-center text-nowrap gap-4">
       {text}
@@ -19,7 +19,7 @@ export const ButtonWhite = ({ text }: { text: String }) => {
   );
 };
 
-export const SmallButton = ({ text }: { text: String }) => {
+export const SmallButton = ({ text }: { text: string }) => {
   return <button className="small-button flex items-center">{text}</button>;
 };
 
