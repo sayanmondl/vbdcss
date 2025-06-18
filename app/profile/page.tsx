@@ -22,13 +22,15 @@ export default async function ProfilePage() {
   }
 
   const userId = session.user?.id as string;
-  const studentData = await db.select().from(users).where(eq(users.id, userId));
+  const userData = await db.select().from(users).where(eq(users.id, userId));
 
-  const student = studentData[0];
+  const user = userData[0];
   const res = await db
     .select()
     .from(resources)
     .where(eq(resources.uploaderId, userId));
+
+  const notUserProf = user.role !== "prof";
 
   const getDomainFromUrl = (url: string) => {
     try {
@@ -50,14 +52,14 @@ export default async function ProfilePage() {
                   <div className="relative">
                     <Avatar className="w-24 h-24 mb-4">
                       <AvatarImage
-                        src={student.image || "/placeholder.svg"}
-                        alt={student.name}
+                        src={user.image || "/placeholder.svg"}
+                        alt={user.name}
                       />
                       <AvatarFallback>
-                        {student.name.substring(0, 2).toUpperCase()}
+                        {user.name.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    {student.active && (
+                    {user.active && (
                       <span
                         className="absolute bottom-4 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"
                         title="Active"
@@ -65,55 +67,59 @@ export default async function ProfilePage() {
                     )}
                   </div>
                   <h2 className="text-2xl text-blue-dark font-semibold">
-                    {student.name}
+                    {user.name}
                   </h2>
                   <div className="flex items-center justify-center gap-2 mt-1 font-medium">
                     <Badge variant="outline" className="font-medium">
-                      {student.year?.toString() ?? ""}
+                      {user.year?.toString() ?? ""}
                     </Badge>
-                    <Badge variant="outline" className="font-medium">
-                      SEM - {student.semester}
-                    </Badge>
+                    {notUserProf && (
+                      <Badge variant="outline" className="font-medium">
+                        SEM - {user.semester}
+                      </Badge>
+                    )}
                     <Badge variant="secondary" className="font-medium">
-                      {student.role}
+                      {user.role}
                     </Badge>
                   </div>
                   <div className="flex items-center gap-1 text-md text-slate-500 mt-4">
                     <a
-                      href={`mailto:${student.email}`}
+                      href={`mailto:${user.email}`}
                       className="flex items-center gap-2 p-2 text-sm bg-slate-100 text-blue-600 rounded-md transition-colors"
                     >
                       <Mail className="w-4 h-4" />
-                      {student.email}
+                      {user.email}
                     </a>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg font-medium">Links</CardTitle>
-                  <CardDescription>
-                    Connect with {student.name.split(" ")[0]}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2 text-blue-600">
-                  {(student.links ?? []).map((link, index) => (
-                    <a
-                      key={index}
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 text-sm text-blue-600 bg-slate-100 rounded-md transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4 text-blue-600" />
-                      <span>{getDomainFromUrl(link)}</span>
-                    </a>
-                  ))}
-                </CardContent>
-              </Card>
+              {notUserProf && (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg font-medium">Links</CardTitle>
+                    <CardDescription>
+                      Connect with {user.name.split(" ")[0]}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-blue-600">
+                    {(user.links ?? []).map((link, index) => (
+                      <a
+                        key={index}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 p-2 text-sm text-blue-600 bg-slate-100 rounded-md transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4 text-blue-600" />
+                        <span>{getDomainFromUrl(link)}</span>
+                      </a>
+                    ))}
+                  </CardContent>
+                </Card>
+              )}
 
-              {student.isAdmin ? (
+              {user.isAdmin ? (
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg font-medium">Admin</CardTitle>
@@ -139,60 +145,64 @@ export default async function ProfilePage() {
                   <CardTitle className="font-medium text-lg">About</CardTitle>
                 </CardHeader>
                 <CardContent className="min-h-27">
-                  <p className="text-md leading-relaxed">{student.about}</p>
+                  <p className="text-md leading-relaxed">{user.about}</p>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="font-medium text-lg">
-                    Skills & Expertise
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="min-h-27">
-                  <div className="flex flex-wrap gap-2">
-                    {(student.goodIn ?? []).map((skill, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="px-3 py-1 font-medium text-sm"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="font-medium text-lg">
-                    Account Information
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="min-h-27">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <div className="text-md font-medium text-slate-500">
-                        User ID
-                      </div>
-                      <div className="text-sm">{student.id}</div>
+              {notUserProf && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="font-medium text-lg">
+                      Skills & Expertise
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="min-h-27">
+                    <div className="flex flex-wrap gap-2">
+                      {(user.goodIn ?? []).map((skill, index) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="px-3 py-1 font-medium text-sm"
+                        >
+                          {skill}
+                        </Badge>
+                      ))}
                     </div>
+                  </CardContent>
+                </Card>
+              )}
 
-                    <div>
-                      <div className="text-md font-medium text-slate-500">
-                        Status
+              {notUserProf && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="font-medium text-lg">
+                      Account Information
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="min-h-27">
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <div className="text-md font-medium text-slate-500">
+                          User ID
+                        </div>
+                        <div className="text-sm">{user.id}</div>
                       </div>
-                      <div className="text-sm flex items-center gap-2">
-                        <span
-                          className={`w-2 h-2 rounded-full ${student.active ? "bg-green-500" : "bg-red-500"}`}
-                        ></span>
-                        {student.active ? "Active" : "Inactive"}
+
+                      <div>
+                        <div className="text-md font-medium text-slate-500">
+                          Status
+                        </div>
+                        <div className="text-sm flex items-center gap-2">
+                          <span
+                            className={`w-2 h-2 rounded-full ${user.active ? "bg-green-500" : "bg-red-500"}`}
+                          ></span>
+                          {user.active ? "Active" : "Inactive"}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              )}
 
               <Card>
                 <CardHeader>

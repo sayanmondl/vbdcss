@@ -6,8 +6,10 @@ import {
   AlignLeft,
   Calendar,
   ChevronRight,
+  File,
   GraduationCap,
   Megaphone,
+  User2,
   Volleyball,
 } from "lucide-react";
 import {
@@ -56,14 +58,15 @@ const Navbar = async () => {
               <AccordionItem value="item-1">
                 <AccordionTrigger className="para">
                   <div className="flex items-center gap-2">
-                    <GraduationCap className="text-blue-middark" size={16} />
-                    Student
+                    <User2 className="text-blue-middark" size={16} />
+                    Members
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <ul>
-                    <NavLink link="/student/resources" text="Resources" />
-                    <NavLink link="/student" text="Our Students" />
+                    <NavLink link="/student" text="Students" />
+                    <NavLink link="/faculty" text="Professors" />
+                    <NavLink link="/scholars" text="Research Scholars" />
                   </ul>
                 </AccordionContent>
               </AccordionItem>
@@ -97,6 +100,14 @@ const Navbar = async () => {
                   </div>
                 </Link>
               </AccordionItem>
+              <AccordionItem value="item-5">
+                <Link href="/student/resources">
+                  <div className="flex items-center gap-2 ">
+                    <File className="text-blue-middark" size={16} />
+                    <p className="para py-4 hover:underline">Resources</p>
+                  </div>
+                </Link>
+              </AccordionItem>
             </Accordion>
           </SheetContent>
         </Sheet>
@@ -114,7 +125,10 @@ const Navbar = async () => {
                 </AvatarFallback>
               </Avatar>
               {/* <p className="font-barlow">{name.split(" ")[0]}</p> */}
-              <ChevronRight size={16} className="group-hover:translate-x-1.5 duration-200" />
+              <ChevronRight
+                size={16}
+                className="group-hover:translate-x-1.5 duration-200"
+              />
             </div>
           </Link>
         ) : (
@@ -129,11 +143,11 @@ const Navbar = async () => {
           <NavigationMenuList className="gap-2 bg-transparent">
             <NavigationMenuItem>
               <NavigationMenuTrigger className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent data-[state=open]:bg-white">
-                <GraduationCap className="text-blue-middark" size={16} />
-                <span className="para">Student</span>
+                <User2 className="text-blue-middark" size={16} />
+                <span className="para">Members</span>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="flex h-[220px] w-[450px]">
+                <div className="flex h-[320px] w-[450px]">
                   <div className="flex justify-center items-center overflow-hidden p-4 rounded-md">
                     <Image
                       src="/books.jpg"
@@ -144,12 +158,15 @@ const Navbar = async () => {
                     />
                   </div>
                   <ul className="grid gap-3 py-4 pr-4">
-                    <ListItem href="/student/resources" title="Resources">
-                      Access study materials, library resources, and academic
-                      tools
-                    </ListItem>
-                    <ListItem href="/student" title="Our Students">
+                    <ListItem href="/student" title="Students">
                       View the list of students in the department
+                    </ListItem>
+                    <ListItem href="/faculty" title="Professors">
+                      Professors of the Department of Computer and System
+                      Sciences
+                    </ListItem>
+                    <ListItem href="/scholars" title="Research Scholars">
+                      Current Research Scholars in VBDCSS
                     </ListItem>
                   </ul>
                 </div>
@@ -195,6 +212,14 @@ const Navbar = async () => {
                 <NavigationMenuLink className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent">
                   <Calendar className="text-blue-middark" size={16} />
                   <span className="para">Events</span>
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/student/resources" legacyBehavior passHref>
+                <NavigationMenuLink className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent">
+                  <File className="text-blue-middark" size={16} />
+                  <span className="para">Resources</span>
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>

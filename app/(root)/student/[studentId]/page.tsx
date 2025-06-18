@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card";
 import { ExternalLink, Mail, User, X } from "lucide-react";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { db } from "@/db";
 import { resources, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import StudentNotFound from "./not-found";
 
 export default async function ProfilePage({
   params,
@@ -31,6 +32,14 @@ export default async function ProfilePage({
     .where(eq(users.id, studentId));
 
   const student = selectedStudent[0];
+
+  if (!student) {
+    notFound();
+  }
+
+  if (student.role == "prof") {
+    return <StudentNotFound />;
+  }
 
   const res = await db
     .select()

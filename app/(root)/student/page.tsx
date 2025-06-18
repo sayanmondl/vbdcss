@@ -1,7 +1,7 @@
 import LoadStudents from "@/app/components/LoadStudents";
 import YearSelector from "@/app/components/YearSelector";
 import { auth } from "@/auth";
-import { getStudents } from "@/lib/student";
+import { getStudents } from "@/lib/user";
 import { redirect } from "next/navigation";
 
 const Page = async ({
