@@ -13,21 +13,29 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { title, description, location, date, coverUrl, archive } = body;
 
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      return NextResponse.json(
+        { error: "Invalid date format" },
+        { status: 400 }
+      );
+    }
+
     await db.insert(events).values({
       title: title,
       description: description,
       location: location,
-      date: date,
+      date: new Date(date),
       coverUrl: coverUrl,
       archive: archive,
     });
 
     return NextResponse.json(
-      { message: "User Created successfully" },
+      { message: "Event Created successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Failed to create user:", error);
+    console.error("Failed to create event:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
