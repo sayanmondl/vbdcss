@@ -21,7 +21,7 @@ export function ResourceCard({
   name,
   subject,
 }: {
-  id: string;
+  id: number;
   type: string;
   name: string;
   subject: string;
