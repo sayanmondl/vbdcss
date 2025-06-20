@@ -24,7 +24,9 @@ async function ResourcesList({
   const filteredResources = resources.filter((resource) => {
     const matchesSearch =
       resource.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      resource.description.toLowerCase().includes(searchQuery.toLowerCase());
+      (resource.description || "")
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
 
     const matchesSubject =
       subjectFilter === "all" || resource.subject === subjectFilter;
@@ -43,7 +45,7 @@ async function ResourcesList({
     <>
       <SearchResources
         query={searchQuery}
-        subjects={subjects}
+        subjects={subjects as string[]}
         types={types}
         subjectFilter={subjectFilter}
         typeFilter={typeFilter}
@@ -63,7 +65,7 @@ async function ResourcesList({
               id={resource.id}
               name={resource.name}
               type={resource.type}
-              subject={resource.subject}
+              subject={resource.subject as string}
             />
           ))}
         </div>

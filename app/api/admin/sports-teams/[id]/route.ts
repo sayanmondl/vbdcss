@@ -6,7 +6,7 @@ import { checkIfAdmin } from "@/lib/userauth";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const isAdmin = await checkIfAdmin();
   if (!isAdmin) {
@@ -14,9 +14,10 @@ export async function DELETE(
   }
 
   try {
-    const id = Number.parseInt(params.id);
+    const { id } = await params;
+    const teamId = Number.parseInt(id);
 
-    await db.delete(sportsTeams).where(eq(sportsTeams.id, id));
+    await db.delete(sportsTeams).where(eq(sportsTeams.id, teamId));
 
     return NextResponse.json({ success: true });
   } catch (error) {

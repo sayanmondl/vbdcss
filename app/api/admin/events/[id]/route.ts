@@ -6,7 +6,7 @@ import { checkIfAdmin } from "@/lib/userauth";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const isAdmin = await checkIfAdmin();
   if (!isAdmin) {
@@ -14,9 +14,10 @@ export async function DELETE(
   }
 
   try {
-    const id = Number.parseInt(params.id);
+    const { id } = await params;
+    const eventId = Number.parseInt(id);
 
-    await db.delete(events).where(eq(events.id, id));
+    await db.delete(events).where(eq(events.id, eventId));
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -42,13 +43,21 @@ export async function PUT(
     const body = await request.json();
     const { title, description, location, date, coverUrl, archiveUrl } = body;
 
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      return NextResponse.json(
+        { error: "Invalid date format" },
+        { status: 400 }
+      );
+    }
+
     await db
       .update(events)
       .set({
         title: title,
         description: description,
         location: location,
-        date: date,
+        date: new Date(date),
         coverUrl: coverUrl,
         archive: archiveUrl,
       })
