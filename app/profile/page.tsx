@@ -73,6 +73,9 @@ export default async function ProfilePage() {
                     <Badge variant="outline" className="font-medium">
                       {user.year?.toString() ?? ""}
                     </Badge>
+                    <Badge variant="outline" className="font-medium">
+                      {user.course}
+                    </Badge>
                     {notUserProf && (
                       <Badge variant="outline" className="font-medium">
                         SEM - {user.semester}

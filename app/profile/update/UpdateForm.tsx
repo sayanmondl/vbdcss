@@ -27,6 +27,7 @@ const UpdateForm = ({ user }: UserProps) => {
   const [name, setName] = useState(user.name);
   const [active, setActive] = useState(user.active);
   const [about, setAbout] = useState(user.about || "");
+  const [year, setYear] = useState(user.year || null);
   const [links, setLinks] = useState<string[]>(user.links || []);
   const [goodIn, setGoodIn] = useState<string[]>(user.goodIn || []);
   const [newLink, setNewLink] = useState("");
@@ -110,6 +111,7 @@ const UpdateForm = ({ user }: UserProps) => {
         body: JSON.stringify({
           email,
           name,
+          year,
           active,
           about,
           links,
@@ -154,6 +156,21 @@ const UpdateForm = ({ user }: UserProps) => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter user name"
                 required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="year">Year Joined</Label>
+              <Input
+                id="year"
+                type="number"
+                value={year ?? ""}
+                onChange={(e) =>
+                  setYear(e.target.value ? parseInt(e.target.value) : null)
+                }
+                placeholder="Enter joining year"
+                min={1900}
+                max={2100}
               />
             </div>
 
