@@ -147,7 +147,7 @@ const Navbar = async () => {
                 <span className="para">Members</span>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="flex h-[320px] w-[450px]">
+                <div className="flex h-[300px] w-[450px]">
                   <div className="flex justify-center items-center overflow-hidden p-4 rounded-md">
                     <Image
                       src="/books.jpg"
@@ -200,28 +200,31 @@ const Navbar = async () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/announcements" legacyBehavior passHref>
-                <NavigationMenuLink className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent">
-                  <Megaphone className="text-blue-middark" size={16} />
-                  <span className="para">Announcements</span>
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink
+                href="/announcements"
+                className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent"
+              >
+                <Megaphone className="text-blue-middark" size={16} />
+                <span className="para">Announcements</span>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/events" legacyBehavior passHref>
-                <NavigationMenuLink className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent">
-                  <Calendar className="text-blue-middark" size={16} />
-                  <span className="para">Events</span>
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink
+                href="/events"
+                className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent"
+              >
+                <Calendar className="text-blue-middark" size={16} />
+                <span className="para">Events</span>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/student/resources" legacyBehavior passHref>
-                <NavigationMenuLink className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent">
-                  <File className="text-blue-middark" size={16} />
-                  <span className="para">Resources</span>
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink
+                href="/student/resources"
+                className="flex items-center gap-2 rounded-[5px] hover:bg-white px-4 py-1.5 bg-transparent"
+              >
+                <File className="text-blue-middark" size={16} />
+                <span className="para">Resources</span>
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
