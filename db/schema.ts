@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm";
 import {
   boolean,
   date,
+  decimal,
   index,
   integer,
   pgEnum,
@@ -37,6 +38,7 @@ export const SEMESTER_ENUM = pgEnum("sem", [
   "VIII",
   "_",
 ]);
+export const COURSE_ENUM = pgEnum("course", ["B.Sc.", "M.Sc.", "_"]);
 
 export const users = pgTable(
   "users",
@@ -49,6 +51,7 @@ export const users = pgTable(
     role: USER_ROLE_ENUM("role").default("student").notNull(),
     year: integer("year"),
     semester: SEMESTER_ENUM("semester").default("_").notNull(),
+    course: COURSE_ENUM("course").notNull(),
     active: boolean("active").default(true).notNull(),
     isAdmin: boolean("is_admin").default(false).notNull(),
     about: text("about"),
@@ -245,5 +248,37 @@ export const authenticators = pgTable(
         columns: [authenticator.userId, authenticator.credentialID],
       }),
     },
+  ]
+);
+
+export const assessments = pgTable("assessment", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  facultyId: uuid("faculty_id")
+    .references(() => users.id)
+    .notNull(),
+  course: COURSE_ENUM("course").notNull(),
+  semester: SEMESTER_ENUM("semester").default("_").notNull(),
+  subject: varchar("subject", { length: 100 }),
+  name: varchar("name", { length: 100 }).notNull(),
+  total: integer("total").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const scores = pgTable(
+  "score",
+  {
+    assessmentId: uuid("assessment_id")
+      .references(() => assessments.id)
+      .notNull(),
+    studentId: uuid("student_id")
+      .references(() => users.id)
+      .notNull(),
+    obtained: decimal("obtained").notNull(),
+  },
+  (table) => [
+    uniqueIndex("score_assessment_student_idx").on(
+      table.assessmentId,
+      table.studentId
+    ),
   ]
 );
