@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 export async function getStudents() {
   const students = db
@@ -47,4 +47,63 @@ export async function getProfessors() {
     .where(eq(users.role, "prof"));
 
   return students;
+}
+
+export async function updateSemester(semester: string) {
+  switch (semester) {
+    case "I":
+      db.update(users)
+        .set({ semester: "II" })
+        .where(eq(users.semester, semester));
+      break;
+
+    case "II":
+      db.update(users)
+        .set({ semester: "III" })
+        .where(eq(users.semester, semester));
+      break;
+
+    case "III":
+      db.update(users)
+        .set({ semester: "IV" })
+        .where(eq(users.semester, semester));
+      break;
+
+    case "IV":
+      db.update(users)
+        .set({ semester: "V" })
+        .where(and(eq(users.semester, semester), eq(users.course, "B.Sc.")));
+
+      db.update(users)
+        .set({ semester: "_", active: false, course: "_" })
+        .where(and(eq(users.semester, semester), eq(users.course, "M.Sc.")));
+      break;
+
+    case "V":
+      db.update(users)
+        .set({ semester: "VI" })
+        .where(eq(users.semester, semester));
+      break;
+
+    case "VI":
+      db.update(users)
+        .set({ semester: "VII" })
+        .where(eq(users.semester, semester));
+      break;
+
+    case "VII":
+      db.update(users)
+        .set({ semester: "VIII" })
+        .where(eq(users.semester, semester));
+      break;
+
+    case "VIII":
+      db.update(users)
+        .set({ semester: "_", active: false, course: "_" })
+        .where(eq(users.semester, semester));
+      break;
+
+    default:
+      break;
+  }
 }

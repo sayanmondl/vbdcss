@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import {
@@ -10,7 +11,14 @@ import {
 } from "@/db/schema";
 import { checkIfAdmin } from "@/lib/userauth";
 import { count } from "drizzle-orm";
-import { Users, FileText, Calendar, Trophy, BookOpen } from "lucide-react";
+import {
+  Users,
+  FileText,
+  Calendar,
+  Trophy,
+  BookOpen,
+  ArrowUpNarrowWide,
+} from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -104,6 +112,15 @@ export default async function AdminDashboard() {
             </Card>
           </Link>
         ))}
+      </div>
+
+      <div className="my-4 flex justify-between">
+        <Link href="/admin/update-sem">
+          <Button>
+            <ArrowUpNarrowWide />
+            Update Semester of Users
+          </Button>
+        </Link>
       </div>
     </div>
   );
