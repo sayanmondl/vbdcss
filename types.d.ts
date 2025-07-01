@@ -17,6 +17,7 @@ interface User {
     | "VII"
     | "VIII"
     | string;
+  course: "B.Sc." | "M.Sc." | string;
   year?: number | null;
   active: boolean;
   about?: string | null;
@@ -61,4 +62,41 @@ interface Team {
   captainId: string;
   logoUrl: string | null;
   tournamentPlayed: number;
+}
+
+interface Assessment {
+  id: string;
+  facultyId: string;
+  semester: "_" | "I" | "II" | "III" | "IV" | "V" | "VI" | "VII" | "VIII";
+  subject: string | null;
+  name: string;
+  total: number;
+  createdAt: Date | null;
+}
+
+interface AssessmentCardProps {
+  id: string;
+  semester:
+    | "_"
+    | "I"
+    | "II"
+    | "III"
+    | "IV"
+    | "V"
+    | "VI"
+    | "VII"
+    | "VIII"
+    | string;
+  course: "B.Sc." | "M.Sc." | string;
+  subject: string | null;
+  name: string;
+  createdAt: Date | null;
+}
+
+interface StudentScoreProps {
+  studentId: string;
+  studentName: string;
+  studentImage: string | null;
+  studentEmail: string;
+  obtained: string;
 }

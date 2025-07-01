@@ -36,6 +36,7 @@ const UpdateUserForm = ({ user }: UserProps) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(user.isAdmin);
   const [year, setYear] = useState<number | undefined>(user.year || undefined);
   const [semester, setSemester] = useState(user.semester);
+  const [course, setCourse] = useState(user.course);
   const [active, setActive] = useState(user.active);
   const [about, setAbout] = useState(user.about || "");
   const [links, setLinks] = useState<string[]>(user.links || []);
@@ -110,6 +111,7 @@ const UpdateUserForm = ({ user }: UserProps) => {
           isAdmin,
           year,
           semester,
+          course,
           active,
           about,
           links,
@@ -211,6 +213,20 @@ const UpdateUserForm = ({ user }: UserProps) => {
                   <SelectItem value="VI">VI</SelectItem>
                   <SelectItem value="VII">VII</SelectItem>
                   <SelectItem value="VIII">VIII</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="course">Course</Label>
+              <Select value={course} onValueChange={setCourse}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Course" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="_">--</SelectItem>
+                  <SelectItem value="B.Sc.">B.Sc.</SelectItem>
+                  <SelectItem value="M.Sc.">M.Sc.</SelectItem>
                 </SelectContent>
               </Select>
             </div>
