@@ -46,12 +46,6 @@ export default async function ProfilePage({
     .from(resources)
     .where(eq(resources.uploaderId, student.id));
 
-  const getYearLabel = (year: number) => {
-    const suffixes = ["st", "nd", "rd", "th"];
-    const suffix = year <= 3 ? suffixes[year - 1] : suffixes[3];
-    return `${year}${suffix} Year`;
-  };
-
   const getDomainFromUrl = (url: string) => {
     try {
       const domain = new URL(url).hostname.replace("www.", "");
@@ -91,10 +85,16 @@ export default async function ProfilePage({
                   </h2>
                   <div className="flex items-center justify-center gap-2 mt-1 font-medium">
                     <Badge variant="outline" className="font-medium">
-                      {getYearLabel(student.year ?? 0)}
+                      {student.course}
+                    </Badge>
+                    <Badge variant="outline" className="font-medium">
+                      Semester {student.semester}
                     </Badge>
                     <Badge variant="secondary" className="font-medium">
                       {student.role}
+                    </Badge><br/>
+                    <Badge variant="secondary" className="font-medium">
+                      {student.year}
                     </Badge>
                   </div>
                   <div className="flex items-center gap-1 text-md text-slate-500 mt-4">
