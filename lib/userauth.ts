@@ -22,3 +22,21 @@ export async function checkIfAdmin() {
 
   return isAdmin;
 }
+
+export async function checkIfFaculty() {
+  const session = await auth();
+
+  if (!session) {
+    return false;
+  }
+  const userId = session.user?.id as string;
+
+  const role = await db
+    .select({ role: users.role })
+    .from(users)
+    .where(eq(users.id, userId));
+
+  const isFaculty = role[0].role === "prof";
+
+  return isFaculty;
+}

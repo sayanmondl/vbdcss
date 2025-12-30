@@ -31,6 +31,7 @@ export default async function ProfilePage() {
     .where(eq(resources.uploaderId, userId));
 
   const notUserProf = user.role !== "prof";
+  const userProf = user.role === "prof";
 
   const getDomainFromUrl = (url: string) => {
     try {
@@ -134,6 +135,27 @@ export default async function ProfilePage() {
                     >
                       <Link className="w-4 h-4 text-blue-600" />
                       <span>Go to Admin panel</span>
+                    </a>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div></div>
+              )}
+
+              {userProf ? (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg font-medium">
+                      Faculty
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-blue-600">
+                    <a
+                      href="/faculty-dashboard"
+                      className="flex items-center gap-2 p-2 text-sm text-blue-600 bg-slate-100 rounded-md transition-colors"
+                    >
+                      <Link className="w-4 h-4 text-blue-600" />
+                      <span>Go to Faculty Dashboard</span>
                     </a>
                   </CardContent>
                 </Card>

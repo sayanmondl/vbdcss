@@ -273,12 +273,12 @@ export const scores = pgTable(
     studentId: uuid("student_id")
       .references(() => users.id)
       .notNull(),
-    obtained: decimal("obtained").notNull(),
+    obtained: decimal("obtained"),
   },
-  (table) => [
-    uniqueIndex("score_assessment_student_idx").on(
-      table.assessmentId,
-      table.studentId
-    ),
-  ]
+  (table) => ({
+    pk: primaryKey({
+      columns: [table.assessmentId, table.studentId],
+      name: "score_pk",
+    }),
+  })
 );

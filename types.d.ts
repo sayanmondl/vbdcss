@@ -69,6 +69,7 @@ interface Assessment {
   facultyId: string;
   semester: "_" | "I" | "II" | "III" | "IV" | "V" | "VI" | "VII" | "VIII";
   subject: string | null;
+  course: "B.Sc." | "M.Sc." | "_";
   name: string;
   total: number;
   createdAt: Date | null;
@@ -98,5 +99,5 @@ interface StudentScoreProps {
   studentName: string;
   studentImage: string | null;
   studentEmail: string;
-  obtained: string;
+  obtained: string | null;
 }
