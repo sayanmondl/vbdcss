@@ -13,16 +13,28 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getStudentScores } from "@/lib/assessments";
 import ExportPDF from "@/app/components/ExportPDFClientWrapper";
 import EditableScoresTable from "@/app/components/EditableScoresTable";
+import { auth } from "@/auth";
+import { checkIfFaculty } from "@/lib/userauth";
 
 export default async function AssessmentDetailsPage({
   params,
 }: {
   params: Promise<{ assessmentId: string }>;
 }) {
+  const session = await auth();
+  if (!session) {
+    redirect("/auth/signin");
+  }
+
+  const isFaculty = await checkIfFaculty();
+  if (!isFaculty) {
+    redirect("/");
+  }
+
   const { assessmentId } = await params;
 
   const assessmentDetails = await db
