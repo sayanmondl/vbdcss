@@ -2,8 +2,8 @@
 
 import { auth, signOut } from "@/auth";
 import { db } from "@/db";
-import { sessions } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { sessions, users } from "@/db/schema";
+import { desc, eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 
 export async function getCurrentSession() {
@@ -39,7 +39,8 @@ export async function getSessions() {
   const allSessions = db
     .select()
     .from(sessions)
-    .where(eq(sessions.userId, userId));
+    .where(eq(sessions.userId, userId))
+    .orderBy(desc(sessions.expires));
 
   return allSessions;
 }
