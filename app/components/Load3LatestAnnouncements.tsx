@@ -11,11 +11,12 @@ const Load3LatestAnnouncements = async () => {
     <div className="pagemargin mt-10" id="announcements">
       <div className="flex items-center">
         <a href="/#announcements">
-          <div className="flex w-full items-center gap-2">
-            <div className="w-4 h-12 bg-blue-dark"></div>
-            <h1 className="font-teko text-3xl font-medium text-nowrap mt-2">
+          <div className="flex items-center gap-4">
+            <div className="min-w-1 h-12 bg-blue-dark"></div>
+            <h1 className="font-teko text-3xl font-medium text-nowrap mt-1">
               LATEST ANNOUNCEMENTS
             </h1>
+            <div className="w-full"></div>
           </div>
         </a>
         <div className="flex-1"></div>

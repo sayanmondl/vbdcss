@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Load3LatestAnnouncements from "../components/Load3LatestAnnouncements";
 import Load3LatestEvents from "../components/Load3LatestEvents";
 import Load3LatestTournaments from "../components/Load3LatestTournamnets";
+import Load3Teams from "../components/Load3Teams";
 
 export default async function Home() {
   return (
@@ -30,7 +31,28 @@ export default async function Home() {
       </div>
       <Load3LatestEvents />
       <Load3LatestAnnouncements />
-      <Load3LatestTournaments />
+      <div className="pagemargin mt-14 md:mt-20" id="sports">
+        <div className="flex items-center gap-4">
+          <div className="h-10 min-w-1 sm:h-12 bg-blue-dark" />
+          <h1 className="font-teko text-2xl sm:text-3xl font-medium mt-1 text-nowrap">
+            SPORTS & ATHLETICS
+          </h1>
+          <div className="w-full"></div>
+          <h1 className="font-teko text-2xl sm:text-3xl font-medium mt-1">
+            TEAMS
+          </h1>
+          <div className="h-10 min-w-1 sm:h-12 bg-blue-dark" />
+        </div>
+        <Load3Teams />
+        <div className="flex items-center gap-4 mt-20">
+          <div className="w-full"></div>
+          <h1 className="font-teko text-2xl sm:text-3xl font-medium mt-1">
+            TOURNAMENTS
+          </h1>
+          <div className="h-10 min-w-1 sm:h-12 bg-blue-dark" />
+        </div>
+        <Load3LatestTournaments />
+      </div>
       <div className="h-36"></div>
       <Footer />
     </main>
