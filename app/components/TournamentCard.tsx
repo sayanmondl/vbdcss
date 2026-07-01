@@ -21,28 +21,23 @@ const formatRange = (start: string, end: string) => {
 
 const TournamentCard = ({ tournament }: TournamentCardProps) => {
   return (
-    <article className="group relative w-full overflow-hidden font-barlow rounded-md border border-border/60 bg-card shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.12)] transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_2px_4px_rgba(15,23,42,0.06),0_24px_48px_-16px_rgba(15,23,42,0.2)]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[radial-gradient(circle,theme(colors.primary/25%),transparent_70%)] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
-      />
-
-      <div className="min-h-36 relative flex items-start justify-between border-b border-border/60 bg-gradient-to-br from-muted/60 via-background to-background px-6 pt-6 pb-5">
+    <article className="group w-full overflow-hidden font-barlow rounded-md border border-border/60 bg-card shadow-sm">
+      <div className="min-h-36 flex items-start justify-between border-b border-border/60 bg-muted/40 px-6 pt-6 pb-5">
         <div className="flex flex-col gap-3">
-          <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/15 bg-primary/8 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/15 bg-primary/8 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
             {tournament.sport}
-          </div>
+          </span>
           <h3 className="line-clamp-2 text-2xl font-semibold leading-tight tracking-tight text-foreground">
             {tournament.name}
           </h3>
         </div>
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-foreground/95 text-background shadow-sm ring-1 ring-inset ring-white/10">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-foreground/95 text-background">
           <Trophy className="h-5 w-5" strokeWidth={2} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 divide-y divide-border/60">
+      <div className="divide-y divide-border/60">
         <MetaRow
           icon={<Calendar className="h-4 w-4" />}
           label="Dates"
@@ -64,11 +59,10 @@ const TournamentCard = ({ tournament }: TournamentCardProps) => {
         <a href={`/sports/${tournament.id}`}>
           <button
             type="button"
-            className="group/btn relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-md bg-blue-dark px-4 py-3 text-sm font-medium text-background transition-all duration-300 hover:gap-3"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-blue-dark px-4 py-3 text-sm font-medium text-background transition-colors duration-200 hover:bg-blue-medium"
           >
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
             View Details
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:rotate-45" />
+            <ArrowUpRight className="h-4 w-4" />
           </button>
         </a>
       </div>
