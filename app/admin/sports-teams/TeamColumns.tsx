@@ -68,6 +68,11 @@ export const teamColumns: ColumnDef<any>[] = [
 
       return (
         <div className="flex items-center gap-2">
+          <Link href={`/admin/sports-teams/${row.original.id}`}>
+            <Button variant="ghost" size="sm">
+              Edit
+            </Button>
+          </Link>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" size="sm">

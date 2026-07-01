@@ -64,6 +64,11 @@ interface Team {
   tournamentPlayed: number;
 }
 
+interface TeamMember {
+  teamId: number;
+  userId: string;
+}
+
 interface Assessment {
   id: string;
   facultyId: string;

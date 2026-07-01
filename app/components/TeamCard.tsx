@@ -3,6 +3,7 @@ import React from "react";
 import type { Team } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getCaptainInfo } from "@/lib/team";
+import Image from "next/image";
 
 interface TeamProp {
   team: Team;
@@ -11,11 +12,23 @@ interface TeamProp {
 const TeamCard = async ({ team }: TeamProp) => {
   const capId = team.captainId;
   const capInfo = await getCaptainInfo(capId);
+
+  const sportImages: Record<string, string> = {
+    football: "/f.jpg",
+    cricket: "/c.jpg",
+    badminton: "/b.avif",
+    volleyball: "/v.jpg",
+    basketball: "/bask.jpg",
+  };
+
+  const imageSrc =
+    sportImages[team.sport.toLowerCase()] ?? "/team_placeholder.svg";
+
   return (
     <div className="w-full max-w-md bg-white rounded-lg shadow-sm font-barlow border overflow-hidden">
       <div className="relative">
         <img
-          src="/team_placeholder.svg"
+          src={imageSrc}
           alt={team.name}
           className="w-full h-56 object-cover"
         />
